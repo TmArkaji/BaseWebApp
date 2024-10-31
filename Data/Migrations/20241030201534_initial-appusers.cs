@@ -7,7 +7,7 @@
 namespace BaseWebApplication.Data.Migrations
 {
     /// <inheritdoc />
-    public partial class initialappusers : Migration
+    public partial class Initialappusers : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)

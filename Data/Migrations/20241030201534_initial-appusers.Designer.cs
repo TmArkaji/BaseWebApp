@@ -13,7 +13,7 @@ namespace BaseWebApplication.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
     [Migration("20241030201534_initial-appusers")]
-    partial class initialappusers
+    partial class Initialappusers
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

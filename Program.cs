@@ -1,5 +1,11 @@
+using BaseWebApplication.Configurations;
+using BaseWebApplication.Configurations.Cryptography;
 using BaseWebApplication.Data;
+using BaseWebApplication.Interfaces;
+using BaseWebApplication.Repositories;
+using BaseWebApplication.Services;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -11,9 +17,28 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
 builder.Services.AddDefaultIdentity<AppUser>(options => options.SignIn.RequireConfirmedAccount = true)
-    .AddRoles<IdentityRole>()
+.AddRoles<IdentityRole>()
     .AddEntityFrameworkStores<ApplicationDbContext>();
 builder.Services.AddControllersWithViews();
+
+// builder.Services.AddTransient<IEmailSender>(s => new EmailService("", 0, ""));
+builder.Services.AddTransient<IEmailSender, EmailService>();
+
+builder.Services.AddScoped(typeof(IGenericRepository<,>), typeof(GenericRepository<,>));
+
+builder.Services.AddAutoMapper(typeof(AutoMapperConfig));
+
+builder.Services.AddControllersWithViews();
+builder.Services.AddHttpContextAccessor();
+
+#region Cryptography 
+builder.Services.AddScoped<ICryptoParamsProtector, CryptoParamsProtector>();
+builder.Services.AddScoped(typeof(CryptoParamsProtector));
+builder.Services.AddMvc(mvcOptions =>
+{
+    mvcOptions.ValueProviderFactories.Add(new CryptoValueProviderFactory());
+});
+#endregion
 
 var app = builder.Build();
 

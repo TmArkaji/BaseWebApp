@@ -19,10 +19,10 @@ namespace BaseWebApplication.Configurations.Entities
                     UserName = Constants.DEFAULT_USER_EMAIL,
                     NormalizedUserName = Constants.DEFAULT_USER_EMAIL.ToUpper(),
                     NormalizedEmail = Constants.DEFAULT_USER_EMAIL.ToUpper(),
-                    primerNombre = "System",
-                    segundoNombre = "",
-                    primerApellido = "Admin",
-                    segundoApellido = "",
+                    PrimerNombre = "System",
+                    SegundoNombre = "",
+                    PrimerApellido = "Admin",
+                    SegundoApellido = "",
                     PasswordHash = hasher.HashPassword(null, "Passw0rd!"),
                     EmailConfirmed = true
                 }
