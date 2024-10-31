@@ -1,0 +1,78 @@
+﻿@model BaseWebApplication.Models.AppUserConfigVM
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<div class="container-xxl">
+    <form asp-action="Edit">
+        <input type="hidden" asp-for="ID" />
+        <div class="row g-2">
+            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                        <div class="row g-2">
+                            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                                <h6 class="mb-2 text-primary">Editar Application user: @Model.AppUser.UserName</h6>
+                            </div>
+                            <div class="col-xl-12 col-lg-12 col-md-9 col-sm-12 col-12">
+                                <div class="form-group">
+                                    <label asp-for="AppUser.UserName" class="control-label"></label>
+                                    <input asp-for="AppUser.UserName" class="form-control" disabled />
+                                    <span asp-validation-for="AppUser.UserName" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="col-xl-3 col-lg-3 col-md-6 col-sm-6 col-12">
+                                <div class="form-group">
+                                    <label asp-for="AppUser.PrimerNombre" class="control-label"></label>
+                                    <input asp-for="AppUser.PrimerNombre" class="form-control numeric-field" />
+                                    <span asp-validation-for="AppUser.PrimerNombre" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="col-xl-3 col-lg-3 col-md-6 col-sm-6 col-12">
+                                <div class="form-group">
+                                    <label asp-for="AppUser.SegundoNombre" class="control-label"></label>
+                                    <input asp-for="AppUser.SegundoNombre" class="form-control numeric-field" />
+                                    <span asp-validation-for="AppUser.SegundoNombre" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="col-xl-3 col-lg-3 col-md-6 col-sm-6 col-12">
+                                <div class="form-group">
+                                    <label asp-for="AppUser.PrimerApellido" class="control-label"></label>
+                                    <input asp-for="AppUser.PrimerApellido" class="form-control numeric-field" />
+                                    <span asp-validation-for="AppUser.PrimerApellido" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="col-xl-3 col-lg-3 col-md-6 col-sm-6 col-12">
+                                <div class="form-group">
+                                    <label asp-for="AppUser.SegundoApellido" class="control-label"></label>
+                                    <input asp-for="AppUser.SegundoApellido" class="form-control numeric-field" />
+                                    <span asp-validation-for="AppUser.SegundoApellido" class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row pt-5">
+                            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                                <div class="text-end">
+                                    <a asp-action="Index" class="btn btn-dark">
+                                        <i class="bi bi-box-arrow-down-left"></i> Back to List
+                                    </a> &nbsp;
+                                     <button type="submit" class="btn btn-primary">
+                                        <i class="bi bi-download"></i> Editar
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

@@ -1,0 +1,71 @@
+﻿@model IEnumerable<BaseWebApplication.Models.AppUserConfigVM>
+
+@{
+    ViewData["Title"] = "Index";
+}
+<div class="pt-2">
+
+    <h1 class="page-title">Lista de usuarios</h1>
+
+    <table class="table  display nowrap w-100 fs-7">
+        <thead>
+            <tr>
+                <th></th>
+                <th>
+                    @Html.DisplayNameFor(model => model.AppUser.UserName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.names)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.surnames)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.AppUser.EmailConfirmed)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.createDate)
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        <div class="btn-group btn-group-sm" role="group">
+                            <a class="btn btn-success" asp-action="Edit" asp-route-id="@item.encryptedID" title="Edit"><i class="bi bi-arrow-clockwise"></i></a>
+                            <a class="btn btn-primary" asp-action="Details" asp-route-id="@item.encryptedID" title="Details"><i class="bi bi-card-list"></i></a>
+                            <button data-id="@item.encryptedID" class="btn btn-danger deleteBtn" asp-route-id="@item.encryptedID"><i class="bi bi-trash"></i></button>
+                        </div>
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.AppUser.UserName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.names)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.surnames)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.AppUser.EmailConfirmed)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.createDate)
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+</div>
+<form id="deleteForm" asp-action="Delete">
+    <input type="hidden" id="modelId" name="id" />
+</form>
+
+@section Scripts {
+    <script>
+
+    </script>
+}

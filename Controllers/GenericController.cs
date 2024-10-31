@@ -42,7 +42,13 @@ namespace BaseWebApplication.Controllers
             var entity = await _repository.GetByIdAsync(id);
             if (entity == null)
                 return NotFound();
-            return View(_mapper.Map<TViewModel>(entity));
+
+            var vModel = _mapper.Map<TViewModel>(entity);
+            vModel.encryptedID = _protector.EncryptParamDictionary(
+                new Dictionary<string, string> {
+                    {"ID", vModel.ID.ToString() }
+                });
+            return View(vModel);
         }
 
         public virtual IActionResult Create()

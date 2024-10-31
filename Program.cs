@@ -25,6 +25,7 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddTransient<IEmailSender, EmailService>();
 
 builder.Services.AddScoped(typeof(IGenericRepository<,>), typeof(GenericRepository<,>));
+builder.Services.AddScoped<IAppUserConfigRepository, AppUserConfigRepository>();
 
 builder.Services.AddAutoMapper(typeof(AutoMapperConfig));
 

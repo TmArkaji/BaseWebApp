@@ -27,6 +27,19 @@ body {
     width: 80px;
 }
 
+.page-title {
+    text-align: center;
+    font-weight: bold;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+    .page-title hr {
+        border: 0;
+        height: 1px;
+        margin: 10px auto;
+        width: 50%;
+    }
 
 /* Estilo global para botones de Bootstrap con bordes cuadrados */
 .btn {
@@ -165,3 +178,42 @@ a {
 }
 
 /*CSS for Login Page*/
+
+
+
+/* Forms Style */
+
+.form-control {
+    border: 1px solid #cfd1d8;
+    -webkit-border-radius: 2px;
+    -moz-border-radius: 2px;
+    border-radius: 2px;
+    font-size: .825rem;
+    background: #ffffff;
+    color: #2e323c;
+}
+
+.card {
+    background: #ffffff;
+    background-clip: border-box;
+    background-color: #fff;
+    border: 0 solid transparent;
+    border-radius: 0;
+    border-radius: 5px;
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 1rem;
+    min-width: 0;
+    -moz-border-radius: 5px;
+    position: relative;
+    -webkit-border-radius: 5px;
+    word-wrap: break-word;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+    .card .card-subtitle {
+        font-weight: 300;
+        margin-bottom: 10px;
+        color: #8898aa;
+    }
+
+/* Forms Style */

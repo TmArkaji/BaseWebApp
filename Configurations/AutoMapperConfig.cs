@@ -10,6 +10,12 @@ namespace BaseWebApplication.Configurations
         public AutoMapperConfig()
         {
             CreateMap<AppUser, AppUserVM>().ReverseMap();
+
+            CreateMap<AppUserConfig, AppUserConfigVM>()
+                .ForMember(dest => dest.AppUser, opt => opt.MapFrom(src => src.AppUser));
+
+            CreateMap<AppUserConfigVM, AppUserConfig>()
+                .ForMember(dest => dest.AppUser, opt => opt.MapFrom(src => src.AppUser));
         }
     }
 }
