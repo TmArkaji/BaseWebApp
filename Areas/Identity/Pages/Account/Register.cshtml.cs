@@ -19,6 +19,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Extensions.Logging;
+using BaseWebApplication.Configurations.Cryptography;
+using BaseWebApplication.Configurations;
 
 namespace BaseWebApplication.Areas.Identity.Pages.Account
 {
@@ -30,13 +32,17 @@ namespace BaseWebApplication.Areas.Identity.Pages.Account
         private readonly IUserEmailStore<AppUser> _emailStore;
         private readonly ILogger<RegisterModel> _logger;
         private readonly IEmailSender _emailSender;
+        private readonly IConfiguration Configuration;
+        private readonly ICryptoParamsProtector _protector;
 
         public RegisterModel(
             UserManager<AppUser> userManager,
             IUserStore<AppUser> userStore,
             SignInManager<AppUser> signInManager,
             ILogger<RegisterModel> logger,
-            IEmailSender emailSender)
+            IEmailSender emailSender,
+            IConfiguration configuration,
+            ICryptoParamsProtector protector)
         {
             _userManager = userManager;
             _userStore = userStore;
@@ -44,6 +50,8 @@ namespace BaseWebApplication.Areas.Identity.Pages.Account
             _signInManager = signInManager;
             _logger = logger;
             _emailSender = emailSender;
+            Configuration = configuration;
+            _protector = protector;
         }
 
         /// <summary>
@@ -80,24 +88,23 @@ namespace BaseWebApplication.Areas.Identity.Pages.Account
             [Display(Name = "Email")]
             public string Email { get; set; }
 
-            /// <summary>
-            ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
-            ///     directly from your code. This API may change or be removed in future releases.
-            /// </summary>
             [Required]
-            [StringLength(100, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 6)]
-            [DataType(DataType.Password)]
-            [Display(Name = "Password")]
-            public string Password { get; set; }
+            [StringLength(100, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 1)]
+            [Display(Name = "Primer Nombre")]
+            public string primerNombre { get; set; }
 
-            /// <summary>
-            ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
-            ///     directly from your code. This API may change or be removed in future releases.
-            /// </summary>
-            [DataType(DataType.Password)]
-            [Display(Name = "Confirm password")]
-            [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
-            public string ConfirmPassword { get; set; }
+            [StringLength(100, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 1)]
+            [Display(Name = "Segundo Nombre")]
+            public string segundoNombre { get; set; }
+
+            [Required]
+            [StringLength(100, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 1)]
+            [Display(Name = "Primer Apellido")]
+            public string primerApellido { get; set; }
+
+            [StringLength(100, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 1)]
+            [Display(Name = "Segundo Apellido")]
+            public string segundoApellido { get; set; }
         }
 
 
@@ -109,6 +116,7 @@ namespace BaseWebApplication.Areas.Identity.Pages.Account
 
         public async Task<IActionResult> OnPostAsync(string returnUrl = null)
         {
+            String Password = "9oQW1wSzY5bFV3RVZ1dTAxQ0VubXJhOFVqaDF0SHpkUmNrU0wybnFOS3plUk9sUk1TSEl.";
             returnUrl ??= Url.Content("~/");
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
             if (ModelState.IsValid)
@@ -117,11 +125,19 @@ namespace BaseWebApplication.Areas.Identity.Pages.Account
 
                 await _userStore.SetUserNameAsync(user, Input.Email, CancellationToken.None);
                 await _emailStore.SetEmailAsync(user, Input.Email, CancellationToken.None);
-                var result = await _userManager.CreateAsync(user, Input.Password);
+                user.PrimerNombre = Input.primerNombre;
+                user.SegundoNombre = Input.segundoNombre;
+                user.PrimerApellido = Input.primerApellido;
+                user.SegundoApellido = Input.segundoApellido;
+                user.EmailConfirmed = true;
+
+                var result = await _userManager.CreateAsync(user, Password);
 
                 if (result.Succeeded)
                 {
                     _logger.LogInformation("User created a new account with password.");
+
+                    await _userManager.AddToRoleAsync(user, Constants.GESTOR_ROLE);
 
                     var userId = await _userManager.GetUserIdAsync(user);
                     var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
@@ -132,18 +148,27 @@ namespace BaseWebApplication.Areas.Identity.Pages.Account
                         values: new { area = "Identity", userId = userId, code = code, returnUrl = returnUrl },
                         protocol: Request.Scheme);
 
-                    await _emailSender.SendEmailAsync(Input.Email, "Confirm your email",
-                        $"Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");
 
-                    if (_userManager.Options.SignIn.RequireConfirmedAccount)
-                    {
-                        return RedirectToPage("RegisterConfirmation", new { email = Input.Email, returnUrl = returnUrl });
-                    }
-                    else
-                    {
-                        await _signInManager.SignInAsync(user, isPersistent: false);
-                        return LocalRedirect(returnUrl);
-                    }
+                    string htmlMessage = System.IO.File.ReadAllText(string.Format(Configuration["AppKeys:HtmlTemplates"] ?? Constants.DEFAULT_PATH, "WelcomeEmail.html"));
+                    htmlMessage = htmlMessage.Replace($"_{nameof(user.PrimerNombre)}", user.PrimerNombre);
+                    htmlMessage = htmlMessage.Replace($"_{nameof(user.PrimerApellido)}", user.PrimerApellido);
+                    htmlMessage = htmlMessage.Replace($"_{nameof(user.Email)}", user.Email);
+                    var URL = $"<a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>";
+                    htmlMessage = htmlMessage.Replace($"_clickHere", URL);
+
+                    await _emailSender.SendEmailAsync(Input.Email, "Confirm your email", htmlMessage);
+
+                    return RedirectToAction("Index", "Home");
+
+                    //if (_userManager.Options.SignIn.RequireConfirmedAccount)
+                    //{
+                    //    return RedirectToPage("RegisterConfirmation", new { email = Input.Email, returnUrl = returnUrl });
+                    //}
+                    //else
+                    //{
+                    //    await _signInManager.SignInAsync(user, isPersistent: false);
+                    //    return LocalRedirect(returnUrl);
+                    //}
                 }
                 foreach (var error in result.Errors)
                 {
@@ -163,7 +188,7 @@ namespace BaseWebApplication.Areas.Identity.Pages.Account
             }
             catch
             {
-                throw new InvalidOperationException($"Can't create an instance of '{nameof(AppUser)}'. " +
+                throw new InvalidOperationException($"Can't create an instance of '{nameof(IdentityUser)}'. " +
                     $"Ensure that '{nameof(AppUser)}' is not an abstract class and has a parameterless constructor, or alternatively " +
                     $"override the register page in /Areas/Identity/Pages/Account/Register.cshtml");
             }

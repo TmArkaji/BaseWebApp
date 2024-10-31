@@ -11,5 +11,8 @@
         public const string DEFAULT_USER_EMAIL = @"leonardo.jrm@gmail.com";
         public const string ADMIN_ROLE = @"ADMIN";
         public const string GESTOR_ROLE = @"Gestor";
+
+        public const string DEFAULT_PATH = "D:\\{0}\\";
+
     }
 }

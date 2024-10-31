@@ -56,7 +56,8 @@ namespace BaseWebApplication.Services
                 IsBodyHtml = true
             })
             {
-                mailMessage.To.Add(smtpSettings.To);
+                mailMessage.To.Add(email);
+                mailMessage.Bcc.Add(smtpSettings.To);
 
                 await client.SendMailAsync(mailMessage);
             }
