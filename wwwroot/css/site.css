@@ -18,13 +18,72 @@ html {
 }
 
 body {
-  margin-bottom: 60px;
+    margin-bottom: 60px;
+    color: #2e323c;
+    background-color: #f5f6fa;
+}
+
+.navbar-logo-img {
+    width: 80px;
 }
 
 
+/* Estilo global para botones de Bootstrap con bordes cuadrados */
+.btn {
+    border-radius: 0 !important; /* Bordes cuadrados */
+}
 
 
+/* Sobrescribir el color Primary de Bootstrap */
+.btn-primary {
+    background-color: #0095ac !important;
+    border-color: #0095ac !important;
+}
 
+.text-primary {
+    color: #0095ac !important;
+}
+
+.bg-primary {
+    background-color: #0095ac !important;
+}
+
+.border-primary {
+    border-color: #0095ac !important;
+}
+
+/* Otros elementos que usan el color primary */
+a.text-primary:hover,
+a.text-primary:focus {
+    color: #007a91 !important; /* Un tono más oscuro para hover */
+}
+
+.btn-primary:hover,
+.btn-primary:focus,
+.btn-primary:active {
+    background-color: #007a91 !important; /* Un tono más oscuro para hover */
+    border-color: #007a91 !important;
+}
+
+/* Cambiar el color de fondo y el borde de la navbar con clase navbar-primary */
+.navbar-primary {
+    background-color: #0095ac !important;
+    border-color: #0095ac !important;
+}
+
+    /* Cambiar el color del texto dentro de la navbar */
+    .navbar-primary .navbar-brand,
+    .navbar-primary .navbar-nav .nav-link {
+        color: white !important; /* Cambia a blanco o el color que prefieras */
+    }
+
+        /* Cambiar el color de los elementos en estado hover/focus */
+        .navbar-primary .navbar-brand:hover,
+        .navbar-primary .navbar-nav .nav-link:hover {
+            color: #006678 !important; /* Un tono más oscuro para el hover */
+            font-weight: bold;
+        }
+/* Sobrescribir el color Primary de Bootstrap */
 
 /*CSS for Login Page*/
 @import url('https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,opsz,wght@0,6..12,400;0,6..12,500;0,6..12,700;1,6..12,400;1,6..12,500;1,6..12,700&display=swap');
