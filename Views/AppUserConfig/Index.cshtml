@@ -1,4 +1,6 @@
-﻿@model IEnumerable<BaseWebApplication.Models.AppUserConfigVM>
+﻿@using BaseWebApplication.Configurations
+@using Newtonsoft.Json
+@model IEnumerable<BaseWebApplication.Models.AppUserConfigVM>
 
 @{
     ViewData["Title"] = "Index";
@@ -64,8 +66,128 @@
     <input type="hidden" id="modelId" name="id" />
 </form>
 
+
+
+
+<div id="gridColorIndex"></div>
+
 @section Scripts {
     <script>
+        $(function () {
+            DevExpress.localization.locale(navigator.language || navigator.browserLanguage);
+            $("#gridColorIndex").dxDataGrid({
+                dataSource: @Html.Raw(JsonConvert.SerializeObject(Model)),
+                keyExpr: "ID",
+                columnAutoWidth: true,
+                allowColumnResizing: true,
+                allowColumnReordering: true,
+                columnResizingMode: "widget",
+                grouping: {
+                    autoExpandAll: true
+                },
+                groupPanel: {
+                    visible: true
+                },
+                scrolling: {
+                    useNative: true
+                },
+                columns: [
+                    {
+                        caption: "Acciones",
+                        type: "buttons",
+                        buttons: [
+                            {
+                                hint: "Editar",
+                                icon: "edit",
+                                onClick: function (e) {
+                                    window.location.href = '@Url.Action("Edit", new { id = "ID_REPLACE" })'.replace("ID_REPLACE", e.row.data.id);
+                                },
+                            },
+                            {
+                                hint: "Eliminar",
+                                icon: "trash",
+                                onClick: function (e) {
+                                    swal({
+                                        title: "Confirmación",
+                                        text: "¿Estas seguro de eliminar el registro?",
+                                        icon: "warning",
+                                        buttons: true,
+                                        dangerMode: true
+                                    }).then((confirm) => {
+                                        if (confirm) {
+                                            var btn = $(this);
+                                            var id = e.row.data.id; // btn.data("id");
+                                            $('#modelId').val(id);
+                                            $('#deleteForm').submit();
+                                        }
+                                    });
+                                }
+                            }
+                        ]
+                    },
+                    { dataField: "AppUser.UserName", caption: "@Html.Raw(@Html.DisplayNameFor(model => model.AppUser.UserName))", sortIndex: 0, sortOrder: "asc" },
+                    { dataField: "AppUser.PrimerApellido", caption: "@Html.Raw(@Html.DisplayNameFor(model => model.AppUser.PrimerApellido))"}
+                ],
+                showBorders: true,
+                paging: {
+                    pageSize: @Html.Raw(Constants.GRID_PAGE_SIZE),
+                },
+                pager: {
+                    showPageSizeSelector: true,
+                    allowedPageSizes: @Html.Raw(Constants.GRID_ALLOWED_PAGE_SIZES),
+                    showInfo: true
+                },
+                filterRow: {
+                    visible: true,
+                    applyFilter: "auto"
+                },
+                searchPanel: {
+                    visible: true,
+                    highlightCaseSensitive: true
+                },
+                export: {
+                    enabled: true,
+                    fileName: "colors",
+                },
+                onExporting: function (e) {
+                    var workbook = new ExcelJS.Workbook();
+                    var worksheet = workbook.addWorksheet('Main sheet');
 
+                    DevExpress.excelExporter.exportDataGrid({
+                        worksheet: worksheet,
+                        component: e.component,
+                        customizeCell: function (options) {
+                            var gridCell = options.gridCell;
+                            var excelCell = options.excelCell;
+                            if (gridCell.rowType === "data") {
+                                if (gridCell.column.dataField === "color") {
+                                    excelCell.font = { bold: true };
+                                }
+                            }
+                        }
+                    }).then(function () {
+                        workbook.xlsx.writeBuffer().then(function (buffer) {
+                            saveAs(new Blob([buffer], { type: "application/octet-stream" }), "Colors.xlsx");
+                        });
+                    });
+                    e.cancel = true;
+                },
+                onToolbarPreparing: function (e) {
+                    var dataGrid = e.component;
+                    e.toolbarOptions.items.unshift({
+                        location: "after",
+                        widget: "dxButton",
+                        options: {
+                            icon: "add",
+                            // text: "Nuevo Registro",
+                            hint: "Crear un nuevo registro",
+                            onClick: function () {
+                                window.location.href = '@Url.Action("Create")';
+                            }
+                        }
+                    });
+                }
+            });
+        });
     </script>
 }

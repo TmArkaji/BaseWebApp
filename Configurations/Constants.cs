@@ -14,5 +14,8 @@
 
         public const string DEFAULT_PATH = "D:\\{0}\\";
 
+        public const string GRID_PAGE_SIZE = "20";
+        public const string GRID_ALLOWED_PAGE_SIZES = "[20, 40, 80]";
+
     }
 }
