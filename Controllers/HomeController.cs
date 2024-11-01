@@ -1,6 +1,7 @@
 using BaseWebApplication.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Localization;
 using System.Diagnostics;
 
 namespace BaseWebApplication.Controllers
@@ -8,10 +9,12 @@ namespace BaseWebApplication.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
+        private readonly IStringLocalizer<SharedResource> _localizer;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ILogger<HomeController> logger, IStringLocalizer<SharedResource> localizer)
         {
             _logger = logger;
+            _localizer = localizer;
         }
         [Authorize]
         public IActionResult Index()

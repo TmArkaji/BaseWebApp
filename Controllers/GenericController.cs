@@ -5,6 +5,7 @@ using BaseWebApplication.Interfaces;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Localization;
 
 namespace BaseWebApplication.Controllers
 {
@@ -16,12 +17,14 @@ namespace BaseWebApplication.Controllers
         private readonly TRepository _repository;
         private readonly IMapper _mapper;
         private readonly ICryptoParamsProtector _protector;
+        private readonly IStringLocalizer<SharedResource> _localizer;
 
-        public BaseController(TRepository repository, IMapper mapper, ICryptoParamsProtector protector)
+        public BaseController(TRepository repository, IMapper mapper, ICryptoParamsProtector protector, IStringLocalizer<SharedResource> localizer)
         {
             _repository = repository;
             _mapper = mapper;
             _protector = protector;
+            _localizer = localizer;
         }
 
         public virtual async Task<IActionResult> Index()

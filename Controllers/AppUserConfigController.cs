@@ -5,6 +5,7 @@ using BaseWebApplication.Interfaces;
 using BaseWebApplication.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Localization;
 
 namespace BaseWebApplication.Controllers
 {
@@ -12,10 +13,13 @@ namespace BaseWebApplication.Controllers
     {
         private readonly IAppUserConfigRepository _repository;
         private readonly IMapper _mapper;
-        public AppUserConfigController(IAppUserConfigRepository repository, IMapper mapper, ICryptoParamsProtector protector) : base(repository, mapper, protector)
+        private readonly IStringLocalizer _localizer;
+
+        public AppUserConfigController(IAppUserConfigRepository repository, IMapper mapper, ICryptoParamsProtector protector, IStringLocalizer<SharedResource> localizer) : base(repository, mapper, protector, localizer)
         {
             _repository = repository;
             _mapper = mapper;
+            _localizer = localizer;
         }
 
         public override async Task<IActionResult> Edit(int id)
@@ -24,7 +28,7 @@ namespace BaseWebApplication.Controllers
             if (entity == null)
                 return NotFound();
             var model = _mapper.Map<AppUserConfigVM>(entity);
-
+            model.AppUser.UserName = _localizer["AppUser.PrimerNombre"];
             return View(model);
         }
 
