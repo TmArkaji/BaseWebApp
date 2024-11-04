@@ -61,6 +61,168 @@ namespace BaseWebApplication.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Usuario de aplicación.
+        /// </summary>
+        public static string AppUser {
+            get {
+                return ResourceManager.GetString("AppUser", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Crear una nueva cuenta.
+        /// </summary>
+        public static string AppUser_CreateTitle {
+            get {
+                return ResourceManager.GetString("AppUser_CreateTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Editar usuario de aplicacion:.
+        /// </summary>
+        public static string AppUser_EditTitle {
+            get {
+                return ResourceManager.GetString("AppUser_EditTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Correo.
+        /// </summary>
+        public static string AppUser_Email {
+            get {
+                return ResourceManager.GetString("AppUser_Email", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Email confirmado.
+        /// </summary>
+        public static string AppUser_EmailConfirmed {
+            get {
+                return ResourceManager.GetString("AppUser_EmailConfirmed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Primer nombre.
+        /// </summary>
+        public static string AppUser_FirstName {
+            get {
+                return ResourceManager.GetString("AppUser_FirstName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Lista de usuarios.
+        /// </summary>
+        public static string AppUser_IndexTitle {
+            get {
+                return ResourceManager.GetString("AppUser_IndexTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Apellido.
+        /// </summary>
+        public static string AppUser_LastName {
+            get {
+                return ResourceManager.GetString("AppUser_LastName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Segundo Apellido.
+        /// </summary>
+        public static string AppUser_MiddleLastName {
+            get {
+                return ResourceManager.GetString("AppUser_MiddleLastName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Segundo nombre.
+        /// </summary>
+        public static string AppUser_MiddleName {
+            get {
+                return ResourceManager.GetString("AppUser_MiddleName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Nombre de usuario.
+        /// </summary>
+        public static string AppUser_UserName {
+            get {
+                return ResourceManager.GetString("AppUser_UserName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Crear nuevo registro.
+        /// </summary>
+        public static string General_AddNew {
+            get {
+                return ResourceManager.GetString("General_AddNew", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Confirme su correo electrónico.
+        /// </summary>
+        public static string General_ConfirmYourEmail {
+            get {
+                return ResourceManager.GetString("General_ConfirmYourEmail", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Editar.
+        /// </summary>
+        public static string General_Edit {
+            get {
+                return ResourceManager.GetString("General_Edit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Editar.
+        /// </summary>
+        public static string General_EditTitle {
+            get {
+                return ResourceManager.GetString("General_EditTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Regresar.
+        /// </summary>
+        public static string General_GoBack {
+            get {
+                return ResourceManager.GetString("General_GoBack", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Guardar.
+        /// </summary>
+        public static string General_Save {
+            get {
+                return ResourceManager.GetString("General_Save", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to El {0} debe ser al menos de {2} y máximo de {1} caracteres..
+        /// </summary>
+        public static string General_StringLength_Error {
+            get {
+                return ResourceManager.GetString("General_StringLength_Error", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Seleccione su lenguaje.
         /// </summary>
         public static string Language_SelectLanguage {

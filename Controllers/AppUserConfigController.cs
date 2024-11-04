@@ -28,7 +28,6 @@ namespace BaseWebApplication.Controllers
             if (entity == null)
                 return NotFound();
             var model = _mapper.Map<AppUserConfigVM>(entity);
-            model.AppUser.UserName = _localizer["AppUser.PrimerNombre"];
             return View(model);
         }
 

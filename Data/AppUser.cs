@@ -4,10 +4,10 @@ namespace BaseWebApplication.Data
 {
     public class AppUser : IdentityUser
     {
-        public string PrimerNombre { get; set; }
-        public string? SegundoNombre { get; set; }
-        public string PrimerApellido { get; set; }
-        public string? SegundoApellido { get; set; }
+        public string FirstName { get; set; }
+        public string? MiddleName { get; set; }
+        public string LastName { get; set; }
+        public string? MiddleLastName { get; set; }
 
     }
 }

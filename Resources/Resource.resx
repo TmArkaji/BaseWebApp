@@ -117,6 +117,60 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="AppUser" xml:space="preserve">
+    <value>Usuario de aplicación</value>
+  </data>
+  <data name="AppUser_CreateTitle" xml:space="preserve">
+    <value>Crear una nueva cuenta</value>
+  </data>
+  <data name="AppUser_EditTitle" xml:space="preserve">
+    <value>Editar usuario de aplicacion:</value>
+  </data>
+  <data name="AppUser_Email" xml:space="preserve">
+    <value>Correo</value>
+  </data>
+  <data name="AppUser_EmailConfirmed" xml:space="preserve">
+    <value>Email confirmado</value>
+  </data>
+  <data name="AppUser_FirstName" xml:space="preserve">
+    <value>Primer nombre</value>
+  </data>
+  <data name="AppUser_IndexTitle" xml:space="preserve">
+    <value>Lista de usuarios</value>
+  </data>
+  <data name="AppUser_LastName" xml:space="preserve">
+    <value>Apellido</value>
+  </data>
+  <data name="AppUser_MiddleLastName" xml:space="preserve">
+    <value>Segundo Apellido</value>
+  </data>
+  <data name="AppUser_MiddleName" xml:space="preserve">
+    <value>Segundo nombre</value>
+  </data>
+  <data name="AppUser_UserName" xml:space="preserve">
+    <value>Nombre de usuario</value>
+  </data>
+  <data name="General_AddNew" xml:space="preserve">
+    <value>Crear nuevo registro</value>
+  </data>
+  <data name="General_ConfirmYourEmail" xml:space="preserve">
+    <value>Confirme su correo electrónico</value>
+  </data>
+  <data name="General_Edit" xml:space="preserve">
+    <value>Editar</value>
+  </data>
+  <data name="General_EditTitle" xml:space="preserve">
+    <value>Editar</value>
+  </data>
+  <data name="General_GoBack" xml:space="preserve">
+    <value>Regresar</value>
+  </data>
+  <data name="General_Save" xml:space="preserve">
+    <value>Guardar</value>
+  </data>
+  <data name="General_StringLength_Error" xml:space="preserve">
+    <value>El {0} debe ser al menos de {2} y máximo de {1} caracteres.</value>
+  </data>
   <data name="Language_SelectLanguage" xml:space="preserve">
     <value>Seleccione su lenguaje</value>
   </data>

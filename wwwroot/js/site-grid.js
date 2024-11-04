@@ -68,7 +68,6 @@ function initializeGrid(options) {
 
     $(function () {
         DevExpress.localization.locale(navigator.language || navigator.browserLanguage);
-        debugger;
         $(options.selector).dxDataGrid({
             dataSource: options.dataSource,
             keyExpr: options.keyExpr || "ID",

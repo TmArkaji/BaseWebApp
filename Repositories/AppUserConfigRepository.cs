@@ -36,10 +36,10 @@ namespace BaseWebApplication.Repositories
             var user = await _userManager.FindByIdAsync(model.AppUserID);
             if (user != null)
             {
-                user.PrimerNombre = entity.AppUser.PrimerNombre;
-                user.SegundoNombre = entity.AppUser.SegundoNombre;
-                user.PrimerApellido = entity.AppUser.PrimerApellido;
-                user.SegundoApellido = entity.AppUser.SegundoApellido;
+                user.FirstName = entity.AppUser.FirstName;
+                user.MiddleName = entity.AppUser.MiddleName;
+                user.LastName = entity.AppUser.LastName;
+                user.MiddleLastName = entity.AppUser.MiddleLastName;
 
                 var result = await _userManager.UpdateAsync(user);
                 if (!result.Succeeded)

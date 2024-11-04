@@ -3,36 +3,35 @@
 @{
     ViewData["Title"] = "Register";
 }
-<div class="container-fluid vh-100 pt-5">
+<div class="container pt-2">
 
-
-    <h1>@ViewData["Title"]</h1>
+    <h1 class="text-center">@BaseWebApplication.Resources.Resource.AppUser</h1>
 
     <div class="row">
         <div class="col-md-6">
             <form id="registerForm" asp-route-returnUrl="@Model.ReturnUrl" method="post">
-                <h2>Create a new account.</h2>
+                <h2>@BaseWebApplication.Resources.Resource.AppUser_CreateTitle</h2>
                 <hr />
                 <div asp-validation-summary="ModelOnly" class="text-danger" role="alert"></div>
                 <div class="form-floating mb-3">
-                    <input asp-for="Input.primerNombre" class="form-control" autocomplete="username" aria-required="true" placeholder="name@example.com" />
-                    <label asp-for="Input.primerNombre"></label>
-                    <span asp-validation-for="Input.primerNombre" class="text-danger"></span>
+                    <input asp-for="Input.FirstName" class="form-control" autocomplete="username" aria-required="true" placeholder="name@example.com" />
+                    <label asp-for="Input.FirstName"></label>
+                    <span asp-validation-for="Input.FirstName" class="text-danger"></span>
                 </div>
                 <div class="form-floating mb-3">
-                    <input asp-for="Input.segundoNombre" class="form-control" autocomplete="username" aria-required="true" placeholder="name@example.com" />
-                    <label asp-for="Input.segundoNombre"></label>
-                    <span asp-validation-for="Input.segundoNombre" class="text-danger"></span>
+                    <input asp-for="Input.MiddleName" class="form-control" autocomplete="username" aria-required="true" placeholder="name@example.com" />
+                    <label asp-for="Input.MiddleName"></label>
+                    <span asp-validation-for="Input.MiddleName" class="text-danger"></span>
                 </div>
                 <div class="form-floating mb-3">
-                    <input asp-for="Input.primerApellido" class="form-control" autocomplete="username" aria-required="true" placeholder="name@example.com" />
-                    <label asp-for="Input.primerApellido"></label>
-                    <span asp-validation-for="Input.primerApellido" class="text-danger"></span>
+                    <input asp-for="Input.LastName" class="form-control" autocomplete="username" aria-required="true" placeholder="name@example.com" />
+                    <label asp-for="Input.LastName"></label>
+                    <span asp-validation-for="Input.LastName" class="text-danger"></span>
                 </div>
                 <div class="form-floating mb-3">
-                    <input asp-for="Input.segundoApellido" class="form-control" autocomplete="username" aria-required="true" placeholder="name@example.com" />
-                    <label asp-for="Input.segundoApellido"></label>
-                    <span asp-validation-for="Input.segundoApellido" class="text-danger"></span>
+                    <input asp-for="Input.MiddleLastName" class="form-control" autocomplete="username" aria-required="true" placeholder="name@example.com" />
+                    <label asp-for="Input.MiddleLastName"></label>
+                    <span asp-validation-for="Input.MiddleLastName" class="text-danger"></span>
                 </div>
 
                 <div class="form-floating mb-3">
@@ -40,8 +39,15 @@
                     <label asp-for="Input.Email">Email</label>
                     <span asp-validation-for="Input.Email" class="text-danger"></span>
                 </div>
-                <button id="registerSubmit" type="submit" class="w-100 btn btn-lg btn-primary">Register</button>
 
+                <div class="text-end">
+                    <a asp-action="Index" class="btn btn-dark">
+                        <i class="bi bi-box-arrow-down-left"></i> @BaseWebApplication.Resources.Resource.General_GoBack
+                    </a> &nbsp;
+                    <button id="registerSubmit" type="submit" class="btn btn-primary">
+                        <i class="bi bi-download"></i> @BaseWebApplication.Resources.Resource.General_Save
+                    </button>
+                </div>
             </form>
         </div>
     </div>

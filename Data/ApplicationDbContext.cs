@@ -12,6 +12,7 @@ namespace BaseWebApplication.Data
             : base(options)
         {
         }
+        // add-migration Initial -o Data\Migrations
 
         protected override void OnModelCreating(ModelBuilder builder)
         {

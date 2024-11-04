@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BaseWebApplication.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20241101231450_Initial")]
+    [Migration("20241104181230_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
@@ -44,11 +44,25 @@ namespace BaseWebApplication.Data.Migrations
                     b.Property<bool>("EmailConfirmed")
                         .HasColumnType("bit");
 
+                    b.Property<string>("FirstName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("LastName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<bool>("LockoutEnabled")
                         .HasColumnType("bit");
 
                     b.Property<DateTimeOffset?>("LockoutEnd")
                         .HasColumnType("datetimeoffset");
+
+                    b.Property<string>("MiddleLastName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("MiddleName")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("NormalizedEmail")
                         .HasMaxLength(256)
@@ -67,21 +81,7 @@ namespace BaseWebApplication.Data.Migrations
                     b.Property<bool>("PhoneNumberConfirmed")
                         .HasColumnType("bit");
 
-                    b.Property<string>("PrimerApellido")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("PrimerNombre")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("SecurityStamp")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("SegundoApellido")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("SegundoNombre")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("TwoFactorEnabled")
@@ -108,19 +108,19 @@ namespace BaseWebApplication.Data.Migrations
                         {
                             Id = "32afb49a-7489-4e92-bdef-6ffaae987a42",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "9ef19da8-4979-4384-9a4a-6dbf64a3b611",
+                            ConcurrencyStamp = "26d447a5-c4ce-4861-90e4-b46b5f18f89e",
                             Email = "leonardo.jrm@gmail.com",
                             EmailConfirmed = true,
+                            FirstName = "System",
+                            LastName = "Admin",
                             LockoutEnabled = false,
+                            MiddleLastName = "",
+                            MiddleName = "",
                             NormalizedEmail = "LEONARDO.JRM@GMAIL.COM",
                             NormalizedUserName = "LEONARDO.JRM@GMAIL.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAEATGRODVbD6XrCByKN6UoB4HoMEf8dCWCFzYPA/Fz9wVg5Pek6EJxET2JaqUn+hqoA==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEN5pSL3EdWow0BOxgik3NdgOiHV223BhS17apI2HyCyfQfLLv/ZnYNGVJegaTGAL+A==",
                             PhoneNumberConfirmed = false,
-                            PrimerApellido = "Admin",
-                            PrimerNombre = "System",
-                            SecurityStamp = "f0842452-dff8-407e-b679-ac777ad044e0",
-                            SegundoApellido = "",
-                            SegundoNombre = "",
+                            SecurityStamp = "cededd9f-81b6-41ec-8fe5-3ee55364c57b",
                             TwoFactorEnabled = false,
                             UserName = "leonardo.jrm@gmail.com"
                         });

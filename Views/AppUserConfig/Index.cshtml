@@ -6,7 +6,8 @@
     ViewData["Title"] = "Index";
 }
 
-<h1 class="page-title">Lista de usuarios</h1>
+<h1 class="page-title">@BaseWebApplication.Resources.Resource.AppUser_IndexTitle</h1>
+
 
 
 <form id="deleteForm" asp-action="Delete">
@@ -62,7 +63,7 @@
             //     },
             // ],
             viewUrlTemplate: '@Url.Action("View", new { id = "ID_REPLACE" })',
-            createButtonHint: "Crear un nuevo registro"
+            createButtonHint: "@BaseWebApplication.Resources.Resource.General_AddNew"
         };
 
         initializeGrid(gridOptions);

@@ -11,9 +11,9 @@ namespace BaseWebApplication.Models
         #region Calculate Fields
 
         [Display(Name = "Names")]
-        public string Names => AppUser == null ? "" : AppUser.PrimerNombre + " " + AppUser.SegundoNombre;
+        public string Names => AppUser == null ? "" : AppUser.FirstName + " " + AppUser.MiddleName;
         [Display(Name = "Surnames")]
-        public string Surnames => AppUser == null ? "" : AppUser.PrimerApellido + " " + AppUser.SegundoApellido;
+        public string Surnames => AppUser == null ? "" : AppUser.LastName + " " + AppUser.MiddleLastName;
         #endregion
 
         public AppUserVM AppUser { get; set; }

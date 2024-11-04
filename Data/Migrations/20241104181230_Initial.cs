@@ -32,10 +32,10 @@ namespace BaseWebApplication.Data.Migrations
                 columns: table => new
                 {
                     Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    PrimerNombre = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    SegundoNombre = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    PrimerApellido = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    SegundoApellido = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    FirstName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    MiddleName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    LastName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    MiddleLastName = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     UserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     NormalizedUserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     Email = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
@@ -197,8 +197,8 @@ namespace BaseWebApplication.Data.Migrations
 
             migrationBuilder.InsertData(
                 table: "AspNetUsers",
-                columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "PrimerApellido", "PrimerNombre", "SecurityStamp", "SegundoApellido", "SegundoNombre", "TwoFactorEnabled", "UserName" },
-                values: new object[] { "32afb49a-7489-4e92-bdef-6ffaae987a42", 0, "9ef19da8-4979-4384-9a4a-6dbf64a3b611", "leonardo.jrm@gmail.com", true, false, null, "LEONARDO.JRM@GMAIL.COM", "LEONARDO.JRM@GMAIL.COM", "AQAAAAIAAYagAAAAEATGRODVbD6XrCByKN6UoB4HoMEf8dCWCFzYPA/Fz9wVg5Pek6EJxET2JaqUn+hqoA==", null, false, "Admin", "System", "f0842452-dff8-407e-b679-ac777ad044e0", "", "", false, "leonardo.jrm@gmail.com" });
+                columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "FirstName", "LastName", "LockoutEnabled", "LockoutEnd", "MiddleLastName", "MiddleName", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
+                values: new object[] { "32afb49a-7489-4e92-bdef-6ffaae987a42", 0, "26d447a5-c4ce-4861-90e4-b46b5f18f89e", "leonardo.jrm@gmail.com", true, "System", "Admin", false, null, "", "", "LEONARDO.JRM@GMAIL.COM", "LEONARDO.JRM@GMAIL.COM", "AQAAAAIAAYagAAAAEN5pSL3EdWow0BOxgik3NdgOiHV223BhS17apI2HyCyfQfLLv/ZnYNGVJegaTGAL+A==", null, false, "cededd9f-81b6-41ec-8fe5-3ee55364c57b", false, "leonardo.jrm@gmail.com" });
 
             migrationBuilder.InsertData(
                 table: "AspNetUserRoles",

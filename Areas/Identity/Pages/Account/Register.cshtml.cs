@@ -21,6 +21,9 @@ using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Extensions.Logging;
 using BaseWebApplication.Configurations.Cryptography;
 using BaseWebApplication.Configurations;
+using BaseWebApplication.Resources;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
+using BaseWebApplication.Interfaces;
 
 namespace BaseWebApplication.Areas.Identity.Pages.Account
 {
@@ -34,6 +37,8 @@ namespace BaseWebApplication.Areas.Identity.Pages.Account
         private readonly IEmailSender _emailSender;
         private readonly IConfiguration Configuration;
         private readonly ICryptoParamsProtector _protector;
+        private readonly IAppUserConfigRepository _appUserConfigRepository;
+
 
         public RegisterModel(
             UserManager<AppUser> userManager,
@@ -41,6 +46,7 @@ namespace BaseWebApplication.Areas.Identity.Pages.Account
             SignInManager<AppUser> signInManager,
             ILogger<RegisterModel> logger,
             IEmailSender emailSender,
+            IAppUserConfigRepository appUserConfigRepository,
             IConfiguration configuration,
             ICryptoParamsProtector protector)
         {
@@ -50,6 +56,7 @@ namespace BaseWebApplication.Areas.Identity.Pages.Account
             _signInManager = signInManager;
             _logger = logger;
             _emailSender = emailSender;
+            _appUserConfigRepository = appUserConfigRepository;
             Configuration = configuration;
             _protector = protector;
         }
@@ -85,26 +92,27 @@ namespace BaseWebApplication.Areas.Identity.Pages.Account
             /// </summary>
             [Required]
             [EmailAddress]
-            [Display(Name = "Email")]
+            [Display(Name = nameof(Resource.AppUser_Email), ResourceType = typeof(Resource))]
+            [StringLength(100, ErrorMessageResourceName = nameof(Resource.General_StringLength_Error), ErrorMessageResourceType = typeof(Resource), MinimumLength = 1)]
             public string Email { get; set; }
 
             [Required]
-            [StringLength(100, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 1)]
-            [Display(Name = "Primer Nombre")]
-            public string primerNombre { get; set; }
+            [StringLength(100, ErrorMessageResourceName = nameof(Resource.General_StringLength_Error), ErrorMessageResourceType = typeof(Resource), MinimumLength = 1)]
+            [Display(Name = nameof(Resource.AppUser_FirstName), ResourceType = typeof(Resource))]
+            public string FirstName { get; set; }
 
-            [StringLength(100, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 1)]
-            [Display(Name = "Segundo Nombre")]
-            public string segundoNombre { get; set; }
+            [StringLength(100, ErrorMessageResourceName = nameof(Resource.General_StringLength_Error), ErrorMessageResourceType = typeof(Resource), MinimumLength = 1)]
+            [Display(Name = nameof(Resource.AppUser_MiddleName), ResourceType = typeof(Resource))]
+            public string MiddleName { get; set; }
 
             [Required]
-            [StringLength(100, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 1)]
-            [Display(Name = "Primer Apellido")]
-            public string primerApellido { get; set; }
+            [StringLength(100, ErrorMessageResourceName = nameof(Resource.General_StringLength_Error), ErrorMessageResourceType = typeof(Resource), MinimumLength = 1)]
+            [Display(Name = nameof(Resource.AppUser_LastName), ResourceType = typeof(Resource))]
+            public string LastName { get; set; }
 
-            [StringLength(100, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 1)]
-            [Display(Name = "Segundo Apellido")]
-            public string segundoApellido { get; set; }
+            [StringLength(100, ErrorMessageResourceName = nameof(Resource.General_StringLength_Error), ErrorMessageResourceType = typeof(Resource), MinimumLength = 1)]
+            [Display(Name = nameof(Resource.AppUser_MiddleLastName), ResourceType = typeof(Resource))]
+            public string MiddleLastName { get; set; }
         }
 
 
@@ -125,10 +133,10 @@ namespace BaseWebApplication.Areas.Identity.Pages.Account
 
                 await _userStore.SetUserNameAsync(user, Input.Email, CancellationToken.None);
                 await _emailStore.SetEmailAsync(user, Input.Email, CancellationToken.None);
-                user.PrimerNombre = Input.primerNombre;
-                user.SegundoNombre = Input.segundoNombre;
-                user.PrimerApellido = Input.primerApellido;
-                user.SegundoApellido = Input.segundoApellido;
+                user.FirstName = Input.FirstName;
+                user.MiddleName = Input.MiddleName;
+                user.LastName = Input.LastName;
+                user.MiddleLastName = Input.MiddleLastName;
                 user.EmailConfirmed = true;
 
                 var result = await _userManager.CreateAsync(user, Password);
@@ -150,25 +158,21 @@ namespace BaseWebApplication.Areas.Identity.Pages.Account
 
 
                     string htmlMessage = System.IO.File.ReadAllText(string.Format(Configuration["AppKeys:HtmlTemplates"] ?? Constants.DEFAULT_PATH, "WelcomeEmail.html"));
-                    htmlMessage = htmlMessage.Replace($"_{nameof(user.PrimerNombre)}", user.PrimerNombre);
-                    htmlMessage = htmlMessage.Replace($"_{nameof(user.PrimerApellido)}", user.PrimerApellido);
+                    htmlMessage = htmlMessage.Replace($"_{nameof(user.FirstName)}", user.FirstName);
+                    htmlMessage = htmlMessage.Replace($"_{nameof(user.LastName)}", user.LastName);
                     htmlMessage = htmlMessage.Replace($"_{nameof(user.Email)}", user.Email);
                     var URL = $"<a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>";
                     htmlMessage = htmlMessage.Replace($"_clickHere", URL);
 
-                    await _emailSender.SendEmailAsync(Input.Email, "Confirm your email", htmlMessage);
+                    await _emailSender.SendEmailAsync(Input.Email, Resource.General_ConfirmYourEmail, htmlMessage);
 
-                    return RedirectToAction("Index", "Home");
-
-                    //if (_userManager.Options.SignIn.RequireConfirmedAccount)
-                    //{
-                    //    return RedirectToPage("RegisterConfirmation", new { email = Input.Email, returnUrl = returnUrl });
-                    //}
-                    //else
-                    //{
-                    //    await _signInManager.SignInAsync(user, isPersistent: false);
-                    //    return LocalRedirect(returnUrl);
-                    //}
+                    var routeID = _appUserConfigRepository.CreateEmptyConfig(userId).Result;
+                    var encriptedID = _protector.EncryptParamDictionary(
+                        new Dictionary<string, string> {
+                            {"ID", routeID.ToString() }
+                        }
+                    );
+                    return RedirectToAction("Index", "AppUserConfig");
                 }
                 foreach (var error in result.Errors)
                 {
