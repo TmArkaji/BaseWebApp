@@ -4,6 +4,6 @@
     {
         public abstract TKey ID { get; set; }
 
-        public string? encryptedID { get; set; }
+        public string? EncryptedID { get; set; }
     }
 }

@@ -17,5 +17,29 @@
         public const string GRID_PAGE_SIZE = "20";
         public const string GRID_ALLOWED_PAGE_SIZES = "[20, 40, 80]";
 
+
+        #region Formato
+
+        public const string GRID_DATE_FMT = "dd/MM/yyyy";
+        public const string GRID_DATE_TYPE = "date";
+
+
+        public const string FMT_FECHA = "{0:dd/MM/yyyy}";
+
+        public const string FMT_DATETIME = "{0:dd/MM/yyyy HH:mm}";
+
+        public const string FMT_CURRENCY = "{0:#,0.00}";
+
+        public const string FMT_INT = "{0:n0}";
+
+        public const string FMT_DECIMAL = "{0:n2}";
+        public const string FMT_DECIMAL_N2 = "N2";
+
+        public const string FMT_FULLDECIMAL = "{0:n5}";
+
+        public const string FMT_PERCENT = "{0:P2}";
+
+        #endregion
+
     }
 }

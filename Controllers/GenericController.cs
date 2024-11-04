@@ -31,7 +31,7 @@ namespace BaseWebApplication.Controllers
         {
             var model = await _repository.GetAllAsync();
             var vModel = _mapper.Map<List<TViewModel>>(model);
-            foreach (var item in vModel) item.encryptedID = _protector.EncryptParamDictionary(
+            foreach (var item in vModel) item.EncryptedID = _protector.EncryptParamDictionary(
                 new Dictionary<string, string> {
                     {"ID", item.ID.ToString() }
                 }
@@ -47,7 +47,7 @@ namespace BaseWebApplication.Controllers
                 return NotFound();
 
             var vModel = _mapper.Map<TViewModel>(entity);
-            vModel.encryptedID = _protector.EncryptParamDictionary(
+            vModel.EncryptedID = _protector.EncryptParamDictionary(
                 new Dictionary<string, string> {
                     {"ID", vModel.ID.ToString() }
                 });

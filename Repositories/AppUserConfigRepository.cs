@@ -33,7 +33,7 @@ namespace BaseWebApplication.Repositories
             model.UpdateUserId = _userId;
 
 
-            var user = await _userManager.FindByIdAsync(model.appUserId);
+            var user = await _userManager.FindByIdAsync(model.AppUserID);
             if (user != null)
             {
                 user.PrimerNombre = entity.AppUser.PrimerNombre;
@@ -61,7 +61,7 @@ namespace BaseWebApplication.Repositories
         {
             var model = new AppUserConfig
             {
-                appUserId = appUserId,
+                AppUserID = appUserId,
                 CreateDate = GetDateTime(),
                 CreateUserId = _userId,
                 UpdateDate = GetDateTime(),

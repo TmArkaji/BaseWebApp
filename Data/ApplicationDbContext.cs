@@ -17,9 +17,9 @@ namespace BaseWebApplication.Data
         {
             base.OnModelCreating(builder);
 
-            //builder.ApplyConfiguration(new AppUserSeedConfiguration());
-            //builder.ApplyConfiguration(new RoleSeedConfiguration());
-            //builder.ApplyConfiguration(new AppUserRoleSeedConfiguration());
+            builder.ApplyConfiguration(new AppUserSeedConfiguration());
+            builder.ApplyConfiguration(new RoleSeedConfiguration());
+            builder.ApplyConfiguration(new AppUserRoleSeedConfiguration());
         }
 
         public DbSet<AppUserConfig> AppUserConfig { get; set; }

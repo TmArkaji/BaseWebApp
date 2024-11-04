@@ -99,6 +99,28 @@ namespace BaseWebApplication.Data.Migrations
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("AspNetUsers", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = "32afb49a-7489-4e92-bdef-6ffaae987a42",
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "9ef19da8-4979-4384-9a4a-6dbf64a3b611",
+                            Email = "leonardo.jrm@gmail.com",
+                            EmailConfirmed = true,
+                            LockoutEnabled = false,
+                            NormalizedEmail = "LEONARDO.JRM@GMAIL.COM",
+                            NormalizedUserName = "LEONARDO.JRM@GMAIL.COM",
+                            PasswordHash = "AQAAAAIAAYagAAAAEATGRODVbD6XrCByKN6UoB4HoMEf8dCWCFzYPA/Fz9wVg5Pek6EJxET2JaqUn+hqoA==",
+                            PhoneNumberConfirmed = false,
+                            PrimerApellido = "Admin",
+                            PrimerNombre = "System",
+                            SecurityStamp = "f0842452-dff8-407e-b679-ac777ad044e0",
+                            SegundoApellido = "",
+                            SegundoNombre = "",
+                            TwoFactorEnabled = false,
+                            UserName = "leonardo.jrm@gmail.com"
+                        });
                 });
 
             modelBuilder.Entity("BaseWebApplication.Data.AppUserConfig", b =>
@@ -108,6 +130,10 @@ namespace BaseWebApplication.Data.Migrations
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"));
+
+                    b.Property<string>("AppUserID")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<DateTime>("CreateDate")
                         .HasColumnType("datetime2");
@@ -126,13 +152,9 @@ namespace BaseWebApplication.Data.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("appUserId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
-
                     b.HasKey("ID");
 
-                    b.HasIndex("appUserId");
+                    b.HasIndex("AppUserID");
 
                     b.ToTable("AppUserConfig");
                 });
@@ -162,6 +184,20 @@ namespace BaseWebApplication.Data.Migrations
                         .HasFilter("[NormalizedName] IS NOT NULL");
 
                     b.ToTable("AspNetRoles", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = "32a2145c-1e0d-4102-a4bf-043481824ceb",
+                            Name = "ADMIN",
+                            NormalizedName = "ADMIN"
+                        },
+                        new
+                        {
+                            Id = "32a2b1b0-619e-4152-86e8-401db0259a12",
+                            Name = "Gestor",
+                            NormalizedName = "GESTOR"
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -251,6 +287,13 @@ namespace BaseWebApplication.Data.Migrations
                     b.HasIndex("RoleId");
 
                     b.ToTable("AspNetUserRoles", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            UserId = "32afb49a-7489-4e92-bdef-6ffaae987a42",
+                            RoleId = "32a2145c-1e0d-4102-a4bf-043481824ceb"
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
@@ -278,7 +321,7 @@ namespace BaseWebApplication.Data.Migrations
                 {
                     b.HasOne("BaseWebApplication.Data.AppUser", "AppUser")
                         .WithMany()
-                        .HasForeignKey("appUserId")
+                        .HasForeignKey("AppUserID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 

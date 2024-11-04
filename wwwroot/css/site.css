@@ -1,3 +1,6 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,opsz,wght@0,6..12,400;0,6..12,500;0,6..12,700;1,6..12,400;1,6..12,500;1,6..12,700&display=swap');
+/*CSS for Login Page*/
+
 html {
   font-size: 14px;
 }
@@ -99,7 +102,7 @@ a.text-primary:focus {
 /* Sobrescribir el color Primary de Bootstrap */
 
 /*CSS for Login Page*/
-@import url('https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,opsz,wght@0,6..12,400;0,6..12,500;0,6..12,700;1,6..12,400;1,6..12,500;1,6..12,700&display=swap');
+
 
 .bg-holder {
     position: absolute;

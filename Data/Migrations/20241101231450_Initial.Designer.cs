@@ -12,15 +12,15 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BaseWebApplication.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20241030201534_initial-appusers")]
-    partial class Initialappusers
+    [Migration("20241101231450_Initial")]
+    partial class Initial
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "8.0.7")
+                .HasAnnotation("ProductVersion", "8.0.10")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
@@ -67,7 +67,21 @@ namespace BaseWebApplication.Data.Migrations
                     b.Property<bool>("PhoneNumberConfirmed")
                         .HasColumnType("bit");
 
+                    b.Property<string>("PrimerApellido")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PrimerNombre")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("SecurityStamp")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("SegundoApellido")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("SegundoNombre")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("TwoFactorEnabled")
@@ -76,20 +90,6 @@ namespace BaseWebApplication.Data.Migrations
                     b.Property<string>("UserName")
                         .HasMaxLength(256)
                         .HasColumnType("nvarchar(256)");
-
-                    b.Property<string>("primerApellido")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("primerNombre")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("segundoApellido")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("segundoNombre")
-                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
@@ -108,22 +108,58 @@ namespace BaseWebApplication.Data.Migrations
                         {
                             Id = "32afb49a-7489-4e92-bdef-6ffaae987a42",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "1fefd418-cfed-4153-9342-cde6c7e73f2d",
+                            ConcurrencyStamp = "9ef19da8-4979-4384-9a4a-6dbf64a3b611",
                             Email = "leonardo.jrm@gmail.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "LEONARDO.JRM@GMAIL.COM",
                             NormalizedUserName = "LEONARDO.JRM@GMAIL.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAEDN2w4sE3it2JlBNKgEtQPPiTYkf6MZUEj4bKkFgPb7Qk74EQBaFC8xpvWGholaQGw==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEATGRODVbD6XrCByKN6UoB4HoMEf8dCWCFzYPA/Fz9wVg5Pek6EJxET2JaqUn+hqoA==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "8767d4dc-2575-463a-98a2-7fd674179c39",
+                            PrimerApellido = "Admin",
+                            PrimerNombre = "System",
+                            SecurityStamp = "f0842452-dff8-407e-b679-ac777ad044e0",
+                            SegundoApellido = "",
+                            SegundoNombre = "",
                             TwoFactorEnabled = false,
-                            UserName = "leonardo.jrm@gmail.com",
-                            primerApellido = "Admin",
-                            primerNombre = "System",
-                            segundoApellido = "",
-                            segundoNombre = ""
+                            UserName = "leonardo.jrm@gmail.com"
                         });
+                });
+
+            modelBuilder.Entity("BaseWebApplication.Data.AppUserConfig", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"));
+
+                    b.Property<string>("AppUserID")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<DateTime>("CreateDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("CreateUserId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("Eliminado")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime>("UpdateDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("UpdateUserId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("ID");
+
+                    b.HasIndex("AppUserID");
+
+                    b.ToTable("AppUserConfig");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -282,6 +318,17 @@ namespace BaseWebApplication.Data.Migrations
                     b.HasKey("UserId", "LoginProvider", "Name");
 
                     b.ToTable("AspNetUserTokens", (string)null);
+                });
+
+            modelBuilder.Entity("BaseWebApplication.Data.AppUserConfig", b =>
+                {
+                    b.HasOne("BaseWebApplication.Data.AppUser", "AppUser")
+                        .WithMany()
+                        .HasForeignKey("AppUserID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("AppUser");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

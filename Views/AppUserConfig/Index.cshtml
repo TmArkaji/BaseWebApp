@@ -5,189 +5,67 @@
 @{
     ViewData["Title"] = "Index";
 }
-<div class="pt-2">
 
-    <h1 class="page-title">Lista de usuarios</h1>
+<h1 class="page-title">Lista de usuarios</h1>
 
-    <table class="table  display nowrap w-100 fs-7">
-        <thead>
-            <tr>
-                <th></th>
-                <th>
-                    @Html.DisplayNameFor(model => model.AppUser.UserName)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.names)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.surnames)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.AppUser.EmailConfirmed)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.createDate)
-                </th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var item in Model)
-            {
-                <tr>
-                    <td>
-                        <div class="btn-group btn-group-sm" role="group">
-                            <a class="btn btn-success" asp-action="Edit" asp-route-id="@item.encryptedID" title="Edit"><i class="bi bi-arrow-clockwise"></i></a>
-                            <a class="btn btn-primary" asp-action="Details" asp-route-id="@item.encryptedID" title="Details"><i class="bi bi-card-list"></i></a>
-                            <button data-id="@item.encryptedID" class="btn btn-danger deleteBtn" asp-route-id="@item.encryptedID"><i class="bi bi-trash"></i></button>
-                        </div>
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.AppUser.UserName)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.names)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.surnames)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.AppUser.EmailConfirmed)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.createDate)
-                    </td>
-                </tr>
-            }
-        </tbody>
-    </table>
 
-</div>
 <form id="deleteForm" asp-action="Delete">
     <input type="hidden" id="modelId" name="id" />
 </form>
 
-
-
-
-<div id="gridColorIndex"></div>
+<div id="index-grid"></div>
 
 @section Scripts {
     <script>
-        $(function () {
-            DevExpress.localization.locale(navigator.language || navigator.browserLanguage);
-            $("#gridColorIndex").dxDataGrid({
-                dataSource: @Html.Raw(JsonConvert.SerializeObject(Model)),
-                keyExpr: "ID",
-                columnAutoWidth: true,
-                allowColumnResizing: true,
-                allowColumnReordering: true,
-                columnResizingMode: "widget",
-                grouping: {
-                    autoExpandAll: true
-                },
-                groupPanel: {
-                    visible: true
-                },
-                scrolling: {
-                    useNative: true
-                },
-                columns: [
-                    {
-                        caption: "Acciones",
-                        type: "buttons",
-                        buttons: [
-                            {
-                                hint: "Editar",
-                                icon: "edit",
-                                onClick: function (e) {
-                                    window.location.href = '@Url.Action("Edit", new { id = "ID_REPLACE" })'.replace("ID_REPLACE", e.row.data.id);
-                                },
-                            },
-                            {
-                                hint: "Eliminar",
-                                icon: "trash",
-                                onClick: function (e) {
-                                    swal({
-                                        title: "Confirmación",
-                                        text: "¿Estas seguro de eliminar el registro?",
-                                        icon: "warning",
-                                        buttons: true,
-                                        dangerMode: true
-                                    }).then((confirm) => {
-                                        if (confirm) {
-                                            var btn = $(this);
-                                            var id = e.row.data.id; // btn.data("id");
-                                            $('#modelId').val(id);
-                                            $('#deleteForm').submit();
-                                        }
-                                    });
-                                }
-                            }
-                        ]
-                    },
-                    { dataField: "AppUser.UserName", caption: "@Html.Raw(@Html.DisplayNameFor(model => model.AppUser.UserName))", sortIndex: 0, sortOrder: "asc" },
-                    { dataField: "AppUser.PrimerApellido", caption: "@Html.Raw(@Html.DisplayNameFor(model => model.AppUser.PrimerApellido))"}
-                ],
-                showBorders: true,
-                paging: {
-                    pageSize: @Html.Raw(Constants.GRID_PAGE_SIZE),
-                },
-                pager: {
-                    showPageSizeSelector: true,
-                    allowedPageSizes: @Html.Raw(Constants.GRID_ALLOWED_PAGE_SIZES),
-                    showInfo: true
-                },
-                filterRow: {
-                    visible: true,
-                    applyFilter: "auto"
-                },
-                searchPanel: {
-                    visible: true,
-                    highlightCaseSensitive: true
-                },
-                export: {
-                    enabled: true,
-                    fileName: "colors",
-                },
-                onExporting: function (e) {
-                    var workbook = new ExcelJS.Workbook();
-                    var worksheet = workbook.addWorksheet('Main sheet');
 
-                    DevExpress.excelExporter.exportDataGrid({
-                        worksheet: worksheet,
-                        component: e.component,
-                        customizeCell: function (options) {
-                            var gridCell = options.gridCell;
-                            var excelCell = options.excelCell;
-                            if (gridCell.rowType === "data") {
-                                if (gridCell.column.dataField === "color") {
-                                    excelCell.font = { bold: true };
-                                }
-                            }
-                        }
-                    }).then(function () {
-                        workbook.xlsx.writeBuffer().then(function (buffer) {
-                            saveAs(new Blob([buffer], { type: "application/octet-stream" }), "Colors.xlsx");
-                        });
-                    });
-                    e.cancel = true;
-                },
-                onToolbarPreparing: function (e) {
-                    var dataGrid = e.component;
-                    e.toolbarOptions.items.unshift({
-                        location: "after",
-                        widget: "dxButton",
-                        options: {
-                            icon: "add",
-                            // text: "Nuevo Registro",
-                            hint: "Crear un nuevo registro",
-                            onClick: function () {
-                                window.location.href = '@Url.Action("Create")';
-                            }
-                        }
-                    });
-                }
-            });
-        });
+        var dataSource = @Html.Raw(JsonConvert.SerializeObject(Model));
+        // var pageSize = @Constants.GRID_PAGE_SIZE;
+        // var allowedPageSizes = @Html.Raw(JsonConvert.SerializeObject(Constants.GRID_ALLOWED_PAGE_SIZES));
+        // var createUrl = '@Url.Action("Create")';
+        var createUrl = '@Url.Page("/Account/Register", null, new { area = "Identity" })';
+        var editUrlTemplate = '@Url.Action("Edit", new { id = "ID_REPLACE" })';
+        var detailsUrlTemplate = '@Url.Action("Details", new { id = "ID_REPLACE" })';
+
+        var gridOptions = {
+            selector: "#index-grid",
+            dataSource: dataSource,
+            columns: [
+                { dataField: "AppUser.@nameof(AppUserConfigVM.AppUser.UserName)", caption: "@Html.DisplayNameFor(model => model.First().AppUser.UserName)", sortIndex: 0, sortOrder: "asc" },
+                { dataField: "@nameof(AppUserConfigVM.Names)", caption: "@Html.DisplayNameFor(model => model.First().Names)" },
+                { dataField: "@nameof(AppUserConfigVM.Surnames)", caption: "@Html.DisplayNameFor(model => model.First().Surnames)" },
+                { dataField: "AppUser.@nameof(AppUserConfigVM.AppUser.EmailConfirmed)", caption: "@Html.DisplayNameFor(model => model.First().AppUser.EmailConfirmed)" },
+                { dataField: "@nameof(AppUserConfigVM.CreateDate)", caption: "@Html.DisplayNameFor(model => model.First().CreateDate),", dataType: "@Constants.GRID_DATE_TYPE", format: "@Constants.GRID_DATE_FMT", },
+
+            ],
+            editUrlTemplate: editUrlTemplate,
+            createUrl: createUrl,
+            detailsUrlTemplate: detailsUrlTemplate,
+            // pageSize: pageSize,
+            // allowedPageSizes: allowedPageSizes,
+            // customizeCell: function (options) {
+            //     var gridCell = options.gridCell;
+            //     var excelCell = options.excelCell;
+            //     if (gridCell.rowType === "data") {
+            //         if (gridCell.column.dataField === "UserName") {
+            //             excelCell.font = { bold: true };
+            //         }
+            //     }
+            // },
+            // actionsButtons: [
+            //     {
+            //         hint: "Ver",
+            //         icon: "trash",
+            //         onClick: function (e) {
+            //             var viewUrl = options.viewUrlTemplate.replace("ID_REPLACE", e.row.data.EncryptedID);
+            //             window.location.href = viewUrl;
+            //         },
+            //     },
+            // ],
+            viewUrlTemplate: '@Url.Action("View", new { id = "ID_REPLACE" })',
+            createButtonHint: "Crear un nuevo registro"
+        };
+
+        initializeGrid(gridOptions);
+
     </script>
 }
