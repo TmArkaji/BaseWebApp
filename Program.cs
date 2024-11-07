@@ -1,5 +1,6 @@
 ﻿using BaseWebApplication.Configurations;
 using BaseWebApplication.Configurations.Cryptography;
+using BaseWebApplication.Configurations.ExceptionsHandler;
 using BaseWebApplication.Data;
 using BaseWebApplication.Interfaces;
 using BaseWebApplication.Repositories;
@@ -23,7 +24,7 @@ builder.Services.AddDefaultIdentity<AppUser>(options => options.SignIn.RequireCo
     .AddEntityFrameworkStores<ApplicationDbContext>();
 builder.Services.AddControllersWithViews();
 
-builder.Services.AddTransient<IEmailSender, EmailService>();
+builder.Services.AddTransient<IEmailSender, IEmailService>();
 
 builder.Services.AddScoped(typeof(IGenericRepository<,>), typeof(GenericRepository<,>));
 builder.Services.AddScoped<IDummyClassRepository, DummyClassRepository>();
@@ -62,6 +63,11 @@ builder.Services.AddMvc(mvcOptions =>
 });
 #endregion
 
+#region Configure logging
+builder.Logging.ClearProviders();
+builder.Logging.AddConsole();
+#endregion
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -82,6 +88,8 @@ app.UseStaticFiles();
 app.UseRouting();
 
 app.UseAuthorization();
+
+app.UseMiddleware<ExceptionHandlingMiddleware>();
 
 app.UseRequestLocalization();
 

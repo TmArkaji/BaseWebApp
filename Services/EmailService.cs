@@ -5,12 +5,12 @@ using System.Net;
 
 namespace BaseWebApplication.Services
 {
-    public class EmailService : IEmailSender
+    public class IEmailService : IEmailSender
     {
         private readonly IConfiguration _configuration;
         private const string password = "lhcb oliv kpvw gqbh";
 
-        public EmailService(IConfiguration configuration)
+        public IEmailService(IConfiguration configuration)
         {
             _configuration = configuration;
         }

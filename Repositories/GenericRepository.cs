@@ -7,6 +7,8 @@ using System.Linq.Expressions;
 using System.Linq;
 using System.Security.Claims;
 using BaseWebApplication.Configurations;
+using BaseWebApplication.Configurations.ExceptionsHandler;
+using System.Data;
 
 namespace BaseWebApplication.Repositories
 {
@@ -39,18 +41,43 @@ namespace BaseWebApplication.Repositories
 
         public virtual async Task<TModel> CreateAsync(TModel entity)
         {
+
+            ValidateModelAsync(entity, false);
+
             entity = AddCreateData(entity);
             await _context.AddAsync(entity);
             await _context.SaveChangesAsync();
             return entity;
         }
 
+        public virtual void ValidateModelAsync(TModel entity, bool isUpdate)
+        {
+            // Override this method whit the validations
+            var errors = new List<string>();
+
+            // Write some validations and add errors to list
+            if (errors.Any())
+            {
+                throw new ValidationException(errors);
+            }
+        }
+
         public virtual async Task<TModel> UpdateAsync(TModel entity)
         {
-            entity = AddUpdateData(entity);
-            _context.Entry(entity).State = EntityState.Modified;
-            await _context.SaveChangesAsync();
-            return entity;
+            try
+            {
+                ValidateModelAsync(entity, true);
+
+                entity = AddUpdateData(entity);
+                _context.Entry(entity).State = EntityState.Modified;
+                await _context.SaveChangesAsync();
+                return entity;
+            }
+            catch (ValidationException ex)
+            {
+                throw;
+            }
+
         }
 
         public virtual DateTime GetDateTime()

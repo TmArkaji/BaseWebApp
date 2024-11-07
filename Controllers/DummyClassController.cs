@@ -1,9 +1,11 @@
 ﻿using AutoMapper;
 using BaseWebApplication.Configurations.Cryptography;
+using BaseWebApplication.Configurations.ExceptionsHandler;
 using BaseWebApplication.Data;
 using BaseWebApplication.Interfaces;
 using BaseWebApplication.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.Extensions.Localization;
 
 namespace BaseWebApplication.Controllers
@@ -28,13 +30,22 @@ namespace BaseWebApplication.Controllers
         [ValidateAntiForgeryToken]
         public override async Task<IActionResult> Create(DummyClassVM model)
         {
-            //model.ID = "-1";
             ModelState.Remove(nameof(model.ID));
             if (ModelState.IsValid)
             {
-                var entity = _mapper.Map<DummyClass>(model);
-                await _repository.CreateAsync(entity);
-                return RedirectToAction(nameof(Index));
+                try
+                {
+                    var entity = _mapper.Map<DummyClass>(model);
+                    await _repository.CreateAsync(entity);
+                    return RedirectToAction(nameof(Index));
+                }
+                catch (ValidationException ex)
+                {
+                    foreach (var error in ex.Errors)
+                    {
+                        ModelState.AddModelError(string.Empty, error);
+                    }
+                }
             }
             LoadViewBag(false);
             return View(model);

@@ -6,6 +6,7 @@ using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Localization;
+using BaseWebApplication.Configurations.ExceptionsHandler;
 
 namespace BaseWebApplication.Controllers
 {
@@ -66,9 +67,19 @@ namespace BaseWebApplication.Controllers
         {
             if (ModelState.IsValid)
             {
-                var entity = _mapper.Map<TModel>(model);
-                await _repository.CreateAsync(entity);
-                return RedirectToAction(nameof(Index));
+                try
+                {
+                    var entity = _mapper.Map<TModel>(model);
+                    await _repository.CreateAsync(entity);
+                    return RedirectToAction(nameof(Index));
+                }
+                catch (ValidationException ex)
+                {
+                    foreach (var error in ex.Errors)
+                    {
+                        ModelState.AddModelError(string.Empty, error);
+                    }
+                }
             }
             LoadViewBag(false);
             return View(model);
@@ -77,11 +88,22 @@ namespace BaseWebApplication.Controllers
         [CryptoValueProvider]
         public virtual async Task<IActionResult> Edit(TKey id)
         {
-            var entity = await _repository.GetByIdAsync(id);
-            if (entity == null)
-                return NotFound();
-            LoadViewBag(false);
-            return View(_mapper.Map<TViewModel>(entity));
+            try
+            {
+                var entity = await _repository.GetByIdAsync(id);
+                if (entity == null)
+                    return NotFound();
+                LoadViewBag(false);
+                return View(_mapper.Map<TViewModel>(entity));
+            }
+            catch (ValidationException ex)
+            {
+                foreach (var error in ex.Errors)
+                {
+                    ModelState.AddModelError(string.Empty, error);
+                }
+            }
+            return View();            
         }
 
         [HttpPost]
@@ -94,6 +116,7 @@ namespace BaseWebApplication.Controllers
                 {
                     var entity = _mapper.Map<TModel>(model);
                     await _repository.UpdateAsync(entity);
+                    return RedirectToAction(nameof(Index));
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -102,7 +125,13 @@ namespace BaseWebApplication.Controllers
                         return NotFound(ModelState);
                     }
                 }
-                return RedirectToAction(nameof(Index));
+                catch (ValidationException ex)
+                {
+                    foreach (var error in ex.Errors)
+                    {
+                        ModelState.AddModelError(string.Empty, error);
+                    }
+                }
             }
             LoadViewBag(false);
             return View(model);
