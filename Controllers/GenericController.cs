@@ -12,7 +12,7 @@ namespace BaseWebApplication.Controllers
     public abstract class BaseController<TRepository, TViewModel, TModel, TKey> : Controller
         where TRepository : IGenericRepository<TKey, TModel>
         where TModel : BaseEntity<TKey>
-        where TViewModel : BaseIdentityVM<TKey>
+        where TViewModel : BaseEntityVM<TKey>
     {
         private readonly TRepository _repository;
         private readonly IMapper _mapper;
@@ -54,8 +54,9 @@ namespace BaseWebApplication.Controllers
             return View(vModel);
         }
 
-        public virtual IActionResult Create()
+        public virtual async Task<IActionResult> CreateAsync()
         {
+            LoadViewBag(false);
             return View();
         }
 
@@ -69,6 +70,7 @@ namespace BaseWebApplication.Controllers
                 await _repository.CreateAsync(entity);
                 return RedirectToAction(nameof(Index));
             }
+            LoadViewBag(false);
             return View(model);
         }
 
@@ -78,6 +80,7 @@ namespace BaseWebApplication.Controllers
             var entity = await _repository.GetByIdAsync(id);
             if (entity == null)
                 return NotFound();
+            LoadViewBag(false);
             return View(_mapper.Map<TViewModel>(entity));
         }
 
@@ -85,10 +88,6 @@ namespace BaseWebApplication.Controllers
         [ValidateAntiForgeryToken]
         public virtual async Task<IActionResult> Edit(TKey id, TViewModel model)
         {
-            //if (id != model.ID)
-            //{
-            //    return NotFound();
-            //}
             if (ModelState.IsValid)
             {
                 try
@@ -105,6 +104,7 @@ namespace BaseWebApplication.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
+            LoadViewBag(false);
             return View(model);
         }
 
@@ -121,6 +121,11 @@ namespace BaseWebApplication.Controllers
                 await _repository.DeleteAsync(id);
             }
             return RedirectToAction(nameof(Index));
+        }
+
+        public virtual void LoadViewBag(bool edit = false)
+        {
+
         }
     }
 }

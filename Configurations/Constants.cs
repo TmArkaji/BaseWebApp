@@ -16,12 +16,16 @@
 
         public const string GRID_PAGE_SIZE = "20";
         public const string GRID_ALLOWED_PAGE_SIZES = "[20, 40, 80]";
-
+        public const string GRID_DATE_FMT = "dd/MM/yyyy";
+        public const string GRID_DATETIME_FMT = "dd/MM/yyyy  HH:mm:ss";
+        public const string GRID_DATE_TYPE = "date";
+        public const string GRID_DATETIME_TYPE = "datetime";
+        public const string GRID_FIXEDPOINT = "fixedPoint";
+        public const string GRID_PRECISION_2 = "2";
+        public const string GRID_PRECISION_0 = "0";
 
         #region Formato
-
-        public const string GRID_DATE_FMT = "dd/MM/yyyy";
-        public const string GRID_DATE_TYPE = "date";
+        public const string COLUMN_TYPE_DECIMAL = "decimal(18,2)";
 
 
         public const string FMT_FECHA = "{0:dd/MM/yyyy}";

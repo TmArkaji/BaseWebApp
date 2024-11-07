@@ -1,0 +1,108 @@
+﻿@model BaseWebApplication.Models.DummyClassVM
+
+<div class="container-xxl">
+    <form asp-action="Edit">
+        <input type="hidden" asp-for="ID" />
+        <div class="row g-2">
+            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <div asp-validation-summary="All" class="text-danger"></div>
+                        <input type="hidden" asp-for="ID"/>
+                        <div class="row g-2">
+                            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                                <h6 class="mb-2 text-primary">@BaseWebApplication.Resources.Resource.General_AddNew</h6>
+                            </div>
+                            <div class="col-xl-3 col-lg-3 col-md-6 col-sm-6 col-12">
+                                <div class="form-group">
+                                    <label asp-for="Dummy" class="control-label"></label>
+                                    <input asp-for="Dummy" class="form-control" />
+                                    <span asp-validation-for="Dummy" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="col-xl-3 col-lg-3 col-md-6 col-sm-6 col-12">
+                                <div class="form-group">
+                                    <label asp-for="DateField" class="control-label"></label>
+                                    <input asp-for="DateField" class="form-control" />
+                                    <span asp-validation-for="DateField" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="col-xl-3 col-lg-3 col-md-6 col-sm-6 col-12">
+                                <div class="form-group">
+                                    <label asp-for="DateTimeField" class="control-label"></label>
+                                    <input asp-for="DateTimeField" class="form-control" />
+                                    <span asp-validation-for="DateTimeField" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="col-xl-3 col-lg-3 col-md-6 col-sm-6 col-12">
+                                <div class="form-group">
+                                    <label asp-for="NulableDateField" class="control-label"></label>
+                                    <input asp-for="NulableDateField" class="form-control" />
+                                    <span asp-validation-for="NulableDateField" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="col-xl-3 col-lg-3 col-md-6 col-sm-6 col-12">
+                                <div class="form-group">
+                                    <label asp-for="DecimalField" class="control-label"></label>
+                                    <input asp-for="DecimalField" class="form-control" />
+                                    <span asp-validation-for="DecimalField" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="col-xl-3 col-lg-3 col-md-6 col-sm-6 col-12">
+                                <div class="form-group">
+                                    <label asp-for="IntField" class="control-label"></label>
+                                    <input asp-for="IntField" class="form-control" />
+                                    <span asp-validation-for="IntField" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="col-xl-3 col-lg-3 col-md-6 col-sm-6 col-12">
+                                <div class="form-group">
+                                    <label asp-for="DummyClassTypeID" class="control-label"></label>
+                                    <select asp-for="DummyClassTypeID" class="form-control" asp-items="ViewBag.DummyClassTypeID"></select>
+                                </div>
+                            </div>
+
+                            <div class="col-xl-3 col-lg-3 col-md-6 col-sm-6 col-12">
+                                <div class="form-group">
+                                    <label asp-for="BoolField" class="control-label"></label>
+                                    <div class="form-group form-check">
+                                        <label class="form-check-label">
+                                            <input class="form-check-input" asp-for="BoolField" />
+                                        </label>
+                                    </div>
+                                    <span asp-validation-for="BoolField" class="text-danger"></span>
+                                </div>
+                            </div>
+
+                            <div class="col-xl-12 col-lg-12 col-md-9 col-sm-12 col-12">
+                                <div class="form-group">
+                                    <label asp-for="TextAreaField" class="control-label"></label>
+                                    <textarea asp-for="TextAreaField" class="form-control"></textarea>
+                                    <span asp-validation-for="TextAreaField" class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row pt-5">
+                            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                                <div class="text-end">
+                                    <a asp-action="Index" class="btn btn-dark">
+                                        <i class="bi bi-box-arrow-down-left"></i> @BaseWebApplication.Resources.Resource.General_GoBack
+                                    </a> &nbsp;
+                                    <button type="submit" class="btn btn-success">
+                                        <i class="bi bi-pencil"></i> @BaseWebApplication.Resources.Resource.General_Edit
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

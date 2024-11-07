@@ -147,11 +147,23 @@
   <data name="AppUser_MiddleName" xml:space="preserve">
     <value>Segundo nombre</value>
   </data>
+  <data name="AppUser_Password" xml:space="preserve">
+    <value>Contraseña</value>
+  </data>
   <data name="AppUser_UserName" xml:space="preserve">
     <value>Nombre de usuario</value>
   </data>
+  <data name="DummyClass_DateField" xml:space="preserve">
+    <value>Campo Fecha</value>
+  </data>
+  <data name="DummyClass_IndexTitle" xml:space="preserve">
+    <value>Lista de DummyClass</value>
+  </data>
   <data name="General_AddNew" xml:space="preserve">
     <value>Crear nuevo registro</value>
+  </data>
+  <data name="General_CheckYourEmail" xml:space="preserve">
+    <value>Por favor revise su correo electrónico para restablecer su contraseña.</value>
   </data>
   <data name="General_ConfirmYourEmail" xml:space="preserve">
     <value>Confirme su correo electrónico</value>
@@ -159,11 +171,38 @@
   <data name="General_Edit" xml:space="preserve">
     <value>Editar</value>
   </data>
+  <data name="General_EditRow" xml:space="preserve">
+    <value>Editar registro: </value>
+  </data>
   <data name="General_EditTitle" xml:space="preserve">
     <value>Editar</value>
   </data>
+  <data name="General_EnterYourEmail" xml:space="preserve">
+    <value />
+  </data>
+  <data name="General_ForgotPassword" xml:space="preserve">
+    <value>¿Olvidó su contraseña?</value>
+  </data>
+  <data name="General_ForgotPasswordConfirmation" xml:space="preserve">
+    <value>Confirmación de contraseña olvidada.</value>
+  </data>
+  <data name="General_GetAccess" xml:space="preserve">
+    <value>Accede a tu cuenta</value>
+  </data>
   <data name="General_GoBack" xml:space="preserve">
     <value>Regresar</value>
+  </data>
+  <data name="General_Home" xml:space="preserve">
+    <value>Inicio</value>
+  </data>
+  <data name="General_LogIn" xml:space="preserve">
+    <value>Iniciar sesión</value>
+  </data>
+  <data name="General_RememberMe" xml:space="preserve">
+    <value>Recordarme?</value>
+  </data>
+  <data name="General_ResetPassword" xml:space="preserve">
+    <value>Restablecer contraseña</value>
   </data>
   <data name="General_Save" xml:space="preserve">
     <value>Guardar</value>

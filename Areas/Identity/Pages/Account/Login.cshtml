@@ -21,8 +21,8 @@
                 </a>
 
                 <div class="text-center mb-5">
-                    <h3 class="fw-bold">Log in</h3>
-                    <p class="text-secondary">Get access to your account</p>
+                    <h3 class="fw-bold">@BaseWebApplication.Resources.Resource.General_LogIn</h3>
+                    <p class="text-secondary">@BaseWebApplication.Resources.Resource.General_GetAccess</p>
                 </div>
 
                 <form id="account" method="post">
@@ -31,7 +31,7 @@
                         <span class="input-group-text">
                             <i class="bx bx-user"></i>
                         </span>
-                        <input asp-for="Input.Email" autocomplete="username" aria-required="true" class="form-control form-control-lg fs-6" placeholder="Username" />
+                        <input asp-for="Input.Email" autocomplete="username" aria-required="true" class="form-control form-control-lg fs-6" placeholder="@BaseWebApplication.Resources.Resource.AppUser_UserName" />
                     </div>
                     <div>
                         <span asp-validation-for="Input.Email" class="text-danger"></span>
@@ -40,7 +40,7 @@
                         <span class="input-group-text">
                             <i class="bx bx-lock-alt"></i>
                         </span>
-                        <input asp-for="Input.Password" autocomplete="current-password" aria-required="true" class="form-control form-control-lg fs-6" placeholder="Password" />
+                        <input asp-for="Input.Password" autocomplete="current-password" aria-required="true" class="form-control form-control-lg fs-6" placeholder="@BaseWebApplication.Resources.Resource.AppUser_Password" />
                     </div>
                     <div>
                         <span asp-validation-for="Input.Password" class="text-danger"></span>
@@ -51,15 +51,15 @@
                             <input asp-for="Input.RememberMe" class="form-check-input" />
                             <label asp-for="Input.RememberMe" class="form-label">
                                 <input class="form-check-input" asp-for="Input.RememberMe" />
-                                @Html.DisplayNameFor(m => m.Input.RememberMe)
+                                @BaseWebApplication.Resources.Resource.General_RememberMe
                             </label>
                         </div>
                         <div>
-                            <small><a id="forgot-password" asp-page="./ForgotPassword">Forgot password?</a></small>
+                            <small><a id="forgot-password" asp-page="./ForgotPassword">@BaseWebApplication.Resources.Resource.General_ForgotPassword</a></small>
                         </div>
                     </div>
 
-                    <button class="btn btn-primary btn-lg w-100 mb-3">Login</button>
+                    <button class="btn btn-primary btn-lg w-100 mb-3">@BaseWebApplication.Resources.Resource.General_LogIn</button>
                 </form>
 
                 <div class="text-center">

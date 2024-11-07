@@ -1,0 +1,77 @@
+﻿@model BaseWebApplication.Models.DummyClassVM
+
+<div class="container">
+    <div class="card">
+        <div class="card-body">
+            <h3 class="card-title">Dummy: @Model.Dummy</h3>
+            <h6 class="card-subtitle">ID: @Model.ID</h6>
+            <div class="row">
+                <div class="col-lg-12 col-md-12 col-sm-12">
+                    <h3 class="box-title mt-1">Información General</h3>
+                    <div class="table-responsive">
+                        <table class="table table-striped table-product">
+                            <tbody>
+                                <tr>
+                                    <td width="390">@Html.DisplayNameFor(model => model.DateField)</td>
+                                    <td>@Html.DisplayFor(model => model.DateField)</td>
+                                </tr>
+                                <tr>
+                                    <td>@Html.DisplayNameFor(model => model.DateTimeField)</td>
+                                    <td>@Html.DisplayFor(model => model.DateTimeField)</td>
+                                </tr>
+                                <tr>
+                                    <td>@Html.DisplayNameFor(model => model.NulableDateField)</td>
+                                    <td>@Html.DisplayFor(model => model.NulableDateField)</td>
+                                </tr>
+                                <tr>
+                                    <td>@Html.DisplayNameFor(model => model.DecimalField)</td>
+                                    <td>@Html.DisplayFor(model => model.DecimalField)</td>
+                                </tr>
+                                <tr>
+                                    <td>@Html.DisplayNameFor(model => model.IntField)</td>
+                                    <td>@Html.DisplayFor(model => model.IntField)</td>
+                                </tr>
+                                <tr>
+                                    <td>@Html.DisplayNameFor(model => model.TextAreaField)</td>
+                                    <td>@Html.DisplayFor(model => model.TextAreaField)</td>
+                                </tr>
+                                <tr>
+                                    <td>@Html.DisplayNameFor(model => model.BoolField)</td>
+                                    <td>@Html.DisplayFor(model => model.BoolField)</td>
+                                </tr>
+                                <tr>
+                                    <td>@Html.DisplayNameFor(model => model.Conditional)</td>
+                                    <td>@Html.DisplayFor(model => model.Conditional)</td>
+                                </tr>
+                                <tr>
+                                    <td>@Html.DisplayNameFor(model => model.DisplayText)</td>
+                                    <td>@Html.DisplayFor(model => model.DisplayText)</td>
+                                </tr>
+                                <tr>
+                                    <td>@Html.DisplayNameFor(model => model.DummyClassTypeID)</td>
+                                    <td>@Html.DisplayFor(model => model.DummyClassTypeID)</td>
+                                </tr>
+                                @* Si DummyClassType tiene más información *@
+                                @if (Model.DummyClassType != null)
+                                {
+                                    <tr>
+                                        <td>@Html.DisplayNameFor(model => model.DummyClassType.ClassType)</td>
+                                        <td>@Html.DisplayFor(model => model.DummyClassType.ClassType)</td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="col-lg-12 col-md-12 col-sm-12 text-end">
+                    <a asp-action="Index" class="btn btn-dark">
+                        <i class="bi bi-box-arrow-down-left"></i> @BaseWebApplication.Resources.Resource.General_GoBack
+                    </a> &nbsp;
+                    <a class="btn btn-success" asp-action="Edit" asp-route-id="@Model.EncryptedID" title="Editar">
+                        <i class="bi bi-pencil"></i> @BaseWebApplication.Resources.Resource.General_Edit
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

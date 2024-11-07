@@ -117,6 +117,33 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="AppUser_Password" xml:space="preserve">
+    <value>Password</value>
+  </data>
+  <data name="General_CheckYourEmail" xml:space="preserve">
+    <value>Please check your email to reset your password.</value>
+  </data>
+  <data name="General_EnterYourEmail" xml:space="preserve">
+    <value>Introduzca su correo electrónico.</value>
+  </data>
+  <data name="General_ForgotPassword" xml:space="preserve">
+    <value>Forgot password?</value>
+  </data>
+  <data name="General_ForgotPasswordConfirmation" xml:space="preserve">
+    <value>Forgot password confirmation</value>
+  </data>
+  <data name="General_GetAccess" xml:space="preserve">
+    <value>Get access to your account</value>
+  </data>
+  <data name="General_LogIn" xml:space="preserve">
+    <value>Log in</value>
+  </data>
+  <data name="General_RememberMe" xml:space="preserve">
+    <value>Remember me?</value>
+  </data>
+  <data name="General_ResetPassword" xml:space="preserve">
+    <value>Reset Password</value>
+  </data>
   <data name="General_StringLength_Error" xml:space="preserve">
     <value>The {0} must be at least {2} and at max {1} characters long.</value>
   </data>

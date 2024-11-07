@@ -1,6 +1,6 @@
 ﻿namespace BaseWebApplication.Models
 {
-    public abstract class BaseIdentityVM<TKey>
+    public abstract class BaseEntityVM<TKey>
     {
         public abstract TKey ID { get; set; }
 

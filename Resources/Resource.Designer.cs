@@ -151,6 +151,15 @@ namespace BaseWebApplication.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Contraseña.
+        /// </summary>
+        public static string AppUser_Password {
+            get {
+                return ResourceManager.GetString("AppUser_Password", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Nombre de usuario.
         /// </summary>
         public static string AppUser_UserName {
@@ -160,11 +169,38 @@ namespace BaseWebApplication.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Campo Fecha.
+        /// </summary>
+        public static string DummyClass_DateField {
+            get {
+                return ResourceManager.GetString("DummyClass_DateField", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Lista de DummyClass.
+        /// </summary>
+        public static string DummyClass_IndexTitle {
+            get {
+                return ResourceManager.GetString("DummyClass_IndexTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Crear nuevo registro.
         /// </summary>
         public static string General_AddNew {
             get {
                 return ResourceManager.GetString("General_AddNew", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Por favor revise su correo electrónico para restablecer su contraseña..
+        /// </summary>
+        public static string General_CheckYourEmail {
+            get {
+                return ResourceManager.GetString("General_CheckYourEmail", resourceCulture);
             }
         }
         
@@ -187,6 +223,15 @@ namespace BaseWebApplication.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Editar registro: .
+        /// </summary>
+        public static string General_EditRow {
+            get {
+                return ResourceManager.GetString("General_EditRow", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Editar.
         /// </summary>
         public static string General_EditTitle {
@@ -196,11 +241,83 @@ namespace BaseWebApplication.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string General_EnterYourEmail {
+            get {
+                return ResourceManager.GetString("General_EnterYourEmail", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ¿Olvidó su contraseña?.
+        /// </summary>
+        public static string General_ForgotPassword {
+            get {
+                return ResourceManager.GetString("General_ForgotPassword", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Confirmación de contraseña olvidada..
+        /// </summary>
+        public static string General_ForgotPasswordConfirmation {
+            get {
+                return ResourceManager.GetString("General_ForgotPasswordConfirmation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Accede a tu cuenta.
+        /// </summary>
+        public static string General_GetAccess {
+            get {
+                return ResourceManager.GetString("General_GetAccess", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Regresar.
         /// </summary>
         public static string General_GoBack {
             get {
                 return ResourceManager.GetString("General_GoBack", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Inicio.
+        /// </summary>
+        public static string General_Home {
+            get {
+                return ResourceManager.GetString("General_Home", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Iniciar sesión.
+        /// </summary>
+        public static string General_LogIn {
+            get {
+                return ResourceManager.GetString("General_LogIn", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Recordarme?.
+        /// </summary>
+        public static string General_RememberMe {
+            get {
+                return ResourceManager.GetString("General_RememberMe", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Restablecer contraseña.
+        /// </summary>
+        public static string General_ResetPassword {
+            get {
+                return ResourceManager.GetString("General_ResetPassword", resourceCulture);
             }
         }
         

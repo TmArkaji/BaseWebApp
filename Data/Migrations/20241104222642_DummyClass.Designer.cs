@@ -4,6 +4,7 @@ using BaseWebApplication.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BaseWebApplication.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20241104222642_DummyClass")]
+    partial class DummyClass
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -156,7 +159,7 @@ namespace BaseWebApplication.Data.Migrations
 
                     b.HasIndex("AppUserID");
 
-                    b.ToTable("AppUserConfig", (string)null);
+                    b.ToTable("AppUserConfig");
                 });
 
             modelBuilder.Entity("BaseWebApplication.Data.DummyClass", b =>
@@ -213,7 +216,7 @@ namespace BaseWebApplication.Data.Migrations
 
                     b.HasIndex("DummyClassTypeID");
 
-                    b.ToTable("DummyClass", (string)null);
+                    b.ToTable("DummyClass");
                 });
 
             modelBuilder.Entity("BaseWebApplication.Data.DummyClassType", b =>
@@ -250,7 +253,7 @@ namespace BaseWebApplication.Data.Migrations
 
                     b.HasKey("ID");
 
-                    b.ToTable("DummyClassType", (string)null);
+                    b.ToTable("DummyClassType");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>

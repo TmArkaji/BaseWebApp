@@ -1,4 +1,4 @@
-using BaseWebApplication.Configurations;
+﻿using BaseWebApplication.Configurations;
 using BaseWebApplication.Configurations.Cryptography;
 using BaseWebApplication.Data;
 using BaseWebApplication.Interfaces;
@@ -23,10 +23,11 @@ builder.Services.AddDefaultIdentity<AppUser>(options => options.SignIn.RequireCo
     .AddEntityFrameworkStores<ApplicationDbContext>();
 builder.Services.AddControllersWithViews();
 
-// builder.Services.AddTransient<IEmailSender>(s => new EmailService("", 0, ""));
 builder.Services.AddTransient<IEmailSender, EmailService>();
 
 builder.Services.AddScoped(typeof(IGenericRepository<,>), typeof(GenericRepository<,>));
+builder.Services.AddScoped<IDummyClassRepository, DummyClassRepository>();
+builder.Services.AddScoped<IDummyClassTypeRepository, DummyClassTypeRepository>();
 builder.Services.AddScoped<IAppUserConfigRepository, AppUserConfigRepository>();
 
 builder.Services.AddAutoMapper(typeof(AutoMapperConfig));
@@ -45,6 +46,7 @@ builder.Services.Configure<RequestLocalizationOptions>(options =>
     options.DefaultRequestCulture = new RequestCulture("es");
     options.SupportedCultures = supportedCultures;
     options.SupportedUICultures = supportedCultures;
+
 });
 #endregion
 

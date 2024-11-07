@@ -24,5 +24,7 @@ namespace BaseWebApplication.Data
         }
 
         public DbSet<AppUserConfig> AppUserConfig { get; set; }
+        public DbSet<DummyClass> DummyClass { get; set; }
+        public DbSet<DummyClassType> DummyClassType { get; set; }
     }
 }

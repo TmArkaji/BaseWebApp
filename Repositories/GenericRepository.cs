@@ -95,6 +95,20 @@ namespace BaseWebApplication.Repositories
             await _context.SaveChangesAsync();
         }
 
+        protected async Task<string> GenerateUniqueIdAsync()
+        {
+            string newId;
+            bool exists;
+
+            do
+            {
+                newId = Guid.NewGuid().ToString();
+                exists = await _context.Set<TModel>().AnyAsync(e => EF.Property<string>(e, "ID") == newId);
+            } while (exists);
+
+            return newId;
+        }
+
         public virtual async Task<bool> Exist(TKey id)
         {
             var entity = await GetByIdAsync(id);

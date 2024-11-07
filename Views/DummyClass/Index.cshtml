@@ -1,0 +1,55 @@
+﻿@using BaseWebApplication.Configurations
+@using Newtonsoft.Json
+@model IEnumerable<BaseWebApplication.Models.DummyClassVM>
+
+<h1 class="page-title">@BaseWebApplication.Resources.Resource.DummyClass_IndexTitle</h1>
+
+
+
+<form id="delete-form" asp-action="Delete">
+    <input type="hidden" id="model-id" name="id" />
+</form>
+
+<div id="index-grid"></div>
+
+@section Scripts {
+    <script>
+
+        var dataSource = @Html.Raw(JsonConvert.SerializeObject(Model));
+        var createUrl = '@Url.Action("Create")';
+        var editUrlTemplate = '@Url.Action("Edit", new { id = "ID_REPLACE" })';
+        var detailsUrlTemplate = '@Url.Action("Details", new { id = "ID_REPLACE" })';
+
+        var gridOptions = {
+            selector: "#index-grid",
+            dataSource: dataSource,
+            columns: [
+
+                { dataField: "@nameof(DummyClassVM.Dummy)", caption: "@Html.DisplayNameFor(model => model.First().Dummy)" },
+                { dataField: "DummyClassType.@nameof(DummyClassTypeVM.ClassType)", caption: "@Html.DisplayNameFor(model => model.First().DummyClassType.ClassType)" },
+                { dataField: "DummyClassType.@nameof(DummyClassTypeVM.ClassTypeOrder)", caption: "@Html.DisplayNameFor(model => model.First().DummyClassType.ClassTypeOrder)" },
+                { dataField: "@nameof(DummyClassVM.DateField)", caption: "@Html.DisplayNameFor(model => model.First().DateField)", dataType: "@Constants.GRID_DATE_TYPE", format: "@Constants.GRID_DATE_FMT" },
+                { dataField: "@nameof(DummyClassVM.DateTimeField)", caption: "@Html.DisplayNameFor(model => model.First().DateTimeField)", dataType: "@Constants.GRID_DATETIME_TYPE", format: "@Constants.GRID_DATETIME_FMT" },
+                { dataField: "@nameof(DummyClassVM.NulableDateField)", caption: "@Html.DisplayNameFor(model => model.First().NulableDateField)", dataType: "@Constants.GRID_DATETIME_TYPE", format: "@Constants.GRID_DATETIME_FMT" },
+                { dataField: "@nameof(DummyClassVM.DecimalField)", caption: "@Html.DisplayNameFor(model => model.First().DecimalField)", format: { type: "@Constants.GRID_FIXEDPOINT", precision: "@Constants.GRID_PRECISION_2" } },
+                { dataField: "@nameof(DummyClassVM.IntField)", caption: "@Html.DisplayNameFor(model => model.First().IntField)", format: { type: "@Constants.GRID_FIXEDPOINT", precision: "@Constants.GRID_PRECISION_0" } },
+                { dataField: "@nameof(DummyClassVM.BoolField)", caption: "@Html.DisplayNameFor(model => model.First().BoolField)" },
+                { dataField: "@nameof(DummyClassVM.Conditional)", caption: "@Html.DisplayNameFor(model => model.First().Conditional)" },
+                { dataField: "@nameof(DummyClassVM.DisplayText)", caption: "@Html.DisplayNameFor(model => model.First().DisplayText)" },
+                { dataField: "@nameof(DummyClassVM.TextAreaField)", caption: "@Html.DisplayNameFor(model => model.First().TextAreaField)" },
+
+            ],
+            editUrlTemplate: editUrlTemplate,
+            createUrl: createUrl,
+            detailsUrlTemplate: detailsUrlTemplate,
+            viewUrlTemplate: '@Url.Action("View", new { id = "ID_REPLACE" })',
+            createButtonHint: "@BaseWebApplication.Resources.Resource.General_AddNew"
+        };
+
+        initializeGrid(gridOptions);
+
+
+
+
+    </script>
+}

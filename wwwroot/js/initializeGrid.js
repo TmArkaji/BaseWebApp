@@ -1,6 +1,5 @@
 ﻿// Please see documentation at https://learn.microsoft.com/aspnet/core/client-side/bundling-and-minification
 // for details on configuring this project to bundle and minify static web assets.
-
 // Write your JavaScript code.
 function initializeGrid(options) {
     if (!options.selector) {
@@ -28,7 +27,7 @@ function initializeGrid(options) {
             {
                 hint: "Editar",
                 icon: "edit",
-                onClick: function (e) {
+                onClick: function(e) {
                     var editUrl = options.editUrlTemplate.replace("ID_REPLACE", e.row.data.EncryptedID);
                     window.location.href = editUrl;
                 },
@@ -36,7 +35,7 @@ function initializeGrid(options) {
             {
                 hint: "Detalles",
                 icon: "info",
-                onClick: function (e) {
+                onClick: function(e) {
                     var detailsUrl = options.detailsUrlTemplate.replace("ID_REPLACE", e.row.data.EncryptedID);
                     window.location.href = detailsUrl;
                 }
@@ -44,16 +43,31 @@ function initializeGrid(options) {
             {
                 hint: "Eliminar",
                 icon: "trash",
-                onClick: function (e) {
-                    var result = DevExpress.ui.dialog.confirm("<i>¿Estás seguro de eliminar el registro?</i>", "Confirmar cambios");
-                    result.done(function (dialogResult) {
+                onClick: function(e) {
+                    var result = DevExpress.ui.dialog.confirm("<i>Are you sure?</i>", "Confirm changes");
+                    result.done(function(dialogResult) {
                         if (dialogResult) {
-                            var id = e.row.data.EncryptedID;
-                            $('#model-id').val(id);
-                            $('#delete-form').submit();
+                            var id = e.row.data.id;
+                            $('#modelId').val(id);
+                            $('#deleteForm').submit();
                         }
-                        // alert(dialogResult ? "Confirmed" : "Canceled");
+                        alert(dialogResult ? "Confirmed" : "Canceled");
                     });
+
+
+                    //swal({
+                    //    title: "Confirmación",
+                    //    text: "¿Estás seguro de eliminar el registro?",
+                    //    icon: "warning",
+                    //    buttons: true,
+                    //    dangerMode: true
+                    //}).then((confirm) => {
+                    //    if (confirm) {
+                    //        var id = e.row.data.id;
+                    //        $('#modelId').val(id);
+                    //        $('#deleteForm').submit();
+                    //    }
+                    //});
                 }
             }
         ]
@@ -62,7 +76,7 @@ function initializeGrid(options) {
     // Combinar la columna "Acciones" con las columnas proporcionadas
     var columns = [actionsColumn].concat(options.columns);
 
-    $(function () {
+    $(function() {
         DevExpress.localization.locale(navigator.language || navigator.browserLanguage);
         $(options.selector).dxDataGrid({
             dataSource: options.dataSource,
@@ -104,22 +118,22 @@ function initializeGrid(options) {
                 enabled: true,
                 fileName: options.exportFileName || "Export",
             },
-            onExporting: function (e) {
+            onExporting: function(e) {
                 var workbook = new ExcelJS.Workbook();
                 var worksheet = workbook.addWorksheet('Main sheet');
 
                 DevExpress.excelExporter.exportDataGrid({
                     worksheet: worksheet,
                     component: e.component,
-                    customizeCell: options.customizeCell || function () { }
-                }).then(function () {
-                    workbook.xlsx.writeBuffer().then(function (buffer) {
+                    customizeCell: options.customizeCell || function() { }
+                }).then(function() {
+                    workbook.xlsx.writeBuffer().then(function(buffer) {
                         saveAs(new Blob([buffer], { type: "application/octet-stream" }), (options.exportFileName || "Export") + ".xlsx");
                     });
                 });
                 e.cancel = true;
             },
-            onToolbarPreparing: function (e) {
+            onToolbarPreparing: function(e) {
                 var dataGrid = e.component;
                 e.toolbarOptions.items.unshift({
                     location: "after",
@@ -127,7 +141,7 @@ function initializeGrid(options) {
                     options: {
                         icon: "add",
                         hint: options.createButtonHint || "Crear un nuevo registro",
-                        onClick: function () {
+                        onClick: function() {
                             window.location.href = options.createUrl;
                         }
                     }

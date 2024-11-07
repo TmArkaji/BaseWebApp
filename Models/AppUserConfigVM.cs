@@ -2,7 +2,7 @@
 
 namespace BaseWebApplication.Models
 {
-    public class AppUserConfigVM : BaseIdentityVM<int>
+    public class AppUserConfigVM : BaseEntityVM<int>
     {
         public override int ID { get; set; }
         [Display(Name = "Creation date")]
