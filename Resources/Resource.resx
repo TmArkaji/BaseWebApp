@@ -159,6 +159,9 @@
   <data name="DummyClass_IndexTitle" xml:space="preserve">
     <value>Lista de DummyClass</value>
   </data>
+  <data name="Err_DuplicatedRecord" xml:space="preserve">
+    <value>Se encontro un registro duplicado para el valor: {0}</value>
+  </data>
   <data name="General_AddNew" xml:space="preserve">
     <value>Crear nuevo registro</value>
   </data>

@@ -187,6 +187,15 @@ namespace BaseWebApplication.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Se encontro un registro duplicado para el valor: {0}.
+        /// </summary>
+        public static string Err_DuplicatedRecord {
+            get {
+                return ResourceManager.GetString("Err_DuplicatedRecord", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Crear nuevo registro.
         /// </summary>
         public static string General_AddNew {

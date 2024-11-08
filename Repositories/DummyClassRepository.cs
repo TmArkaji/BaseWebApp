@@ -2,7 +2,7 @@
 using BaseWebApplication.Interfaces;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using System.ComponentModel.DataAnnotations;
+using BaseWebApplication.Configurations.ExceptionsHandler;
 
 namespace BaseWebApplication.Repositories
 {
@@ -27,6 +27,22 @@ namespace BaseWebApplication.Repositories
         {
             entity.ID = await GenerateUniqueIdAsync();
             return await base.CreateAsync(entity);
+        }
+
+        public override async Task<List<string>> ValidateModelAsync(DummyClass entity, bool isUpdate)
+        {
+            // Override this method whit the validations
+            var errors = new List<string>();
+
+            errors.AddRange(await ValidateDuplicateAsync<DummyClass>(
+                entity,
+                entity.Dummy,
+                m => m.Dummy == entity.Dummy && !m.Eliminado,
+                m => m.ID != entity.ID,
+                isUpdate
+            ));
+            // Write some validations and add errors to list
+            return errors;
         }
     }
 }

@@ -9,6 +9,8 @@ using System.Security.Claims;
 using BaseWebApplication.Configurations;
 using BaseWebApplication.Configurations.ExceptionsHandler;
 using System.Data;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
+using Elfie.Serialization;
 
 namespace BaseWebApplication.Repositories
 {
@@ -42,7 +44,8 @@ namespace BaseWebApplication.Repositories
         public virtual async Task<TModel> CreateAsync(TModel entity)
         {
 
-            ValidateModelAsync(entity, false);
+            var errors = await ValidateModelAsync(entity, false);
+            if (errors.Any()) throw new ValidationException(errors);
 
             entity = AddCreateData(entity);
             await _context.AddAsync(entity);
@@ -50,23 +53,21 @@ namespace BaseWebApplication.Repositories
             return entity;
         }
 
-        public virtual void ValidateModelAsync(TModel entity, bool isUpdate)
+        public virtual async Task<List<string>> ValidateModelAsync(TModel entity, bool isUpdate)
         {
             // Override this method whit the validations
             var errors = new List<string>();
 
             // Write some validations and add errors to list
-            if (errors.Any())
-            {
-                throw new ValidationException(errors);
-            }
+            return errors;
         }
 
         public virtual async Task<TModel> UpdateAsync(TModel entity)
         {
             try
             {
-                ValidateModelAsync(entity, true);
+                var errors = await ValidateModelAsync(entity, true);
+                if (errors.Any()) throw new ValidationException(errors);
 
                 entity = AddUpdateData(entity);
                 _context.Entry(entity).State = EntityState.Modified;
@@ -160,6 +161,42 @@ namespace BaseWebApplication.Repositories
 #pragma warning restore CS8602 // Dereference of a possibly null reference.
 
             return items;
+        }
+
+        public async Task<List<string>> ValidateDuplicateAsync<TModel>(
+            TModel model,
+            string field,
+            Expression<Func<TModel, bool>> duplicateCondition,
+            Expression<Func<TModel, bool>> updateCondition = null,
+            bool isUpdate = false
+            ) where TModel : class
+        {
+            var errors = new List<string>();
+
+            if (duplicateCondition == null)
+            {
+                errors.Add("Duplicate validation condition cannot be null.");
+                return errors;
+            }
+
+            // Start the query with the duplicate condition
+            var query = _context.Set<TModel>().Where(duplicateCondition);
+
+            // Apply the update condition if specified for an update scenario
+            if (isUpdate && updateCondition != null)
+            {
+                query = query.Where(updateCondition);
+            }
+
+            var isDuplicate = await query.AnyAsync();
+
+            if (isDuplicate)
+            {
+                
+                errors.Add(string.Format(Resources.Resource.Err_DuplicatedRecord, field));
+            }
+
+            return errors;
         }
     }
 }

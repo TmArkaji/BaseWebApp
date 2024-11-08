@@ -14,7 +14,7 @@ namespace BaseWebApplication.Interfaces
         Task DeleteAsync(TKey id);
         Task<bool> Exist(TKey id);
         public DateTime GetDateTime();
-        void ValidateModelAsync(TModel model, bool isUpdate);
+        Task<List<string>> ValidateModelAsync(TModel model, bool isUpdate);
 
         Task<IEnumerable<SelectListItem>> GetDropDownList(
             Expression<Func<TModel, string>> textProperty,
